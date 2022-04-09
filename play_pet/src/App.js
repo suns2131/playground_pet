@@ -1,12 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import Posting from './container/Posting';
+import { Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <div>12314</div>
+      <Switch>
+        <Route path={'/'} exact component={Posting} />
+      </Switch>
     </div>
   );
 }
-
 export default App;
