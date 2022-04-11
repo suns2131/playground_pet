@@ -101,7 +101,8 @@ const Post_content = () => {
             star : star,
             content : wirte,
         }
-        console.log(post_data);
+        dispatch(PostActions.addpostTS(post_data))
+        // console.log(post_data);
     }
 
     return (
@@ -188,7 +189,7 @@ const Post_content = () => {
             </Stack>
             <Stack spacing={2} direction="row">
                     <Button variant="contained" onClick={() => {
-                        history.goBack();
+                        dispatch(PostActions.getPostID(3))
                     }}>뒤로가기</Button>
             </Stack>
         </div>

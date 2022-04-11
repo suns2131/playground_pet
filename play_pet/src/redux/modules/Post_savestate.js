@@ -1,5 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+import axios, { Axios } from 'axios'
 
 // actions
 const SET_POST = "SET_POST";
@@ -26,8 +27,21 @@ const initialState = {
 
 
 //middle wares..
-const getPostFB = () => {
+const getPostID = (postid) => {
     return async function (dispatch,getState,{history}){
+        console.log(postid)
+        axios.get('http://localhost:3001/result',{
+          params : {
+            id : postid
+          }
+        })
+        .then(function (response)
+        {
+          console.log(response);
+        })
+        .catch(function (error){
+          console.log(error)
+        })
         // const postdata = getDocs(collection(db,'post'));
         // const post_list = [];
         // (await postdata).forEach((post) => {
@@ -46,35 +60,18 @@ const getPostFB = () => {
 }
 
 
-const addpostTS = (type,post) => {
+const addpostTS = (post) => {
     return async function (dispatch,getState,{history}){
-        const posts = getState();
-        console.log( 'posts : ')
-        console.log(posts)
-        console.log('type : '+type)
-        console.log('post : '+post)
-        console.log(posts.post.list.star)
-        const shot_post = {
-            ...posts
-        }
-        //  if(type == 'star')
-        //      posts.list.star = post;
-        console.log( 'posts2 : ')
-        console.log(shot_post)
-
-        
-
-        // const user_info = {
-        //     user_name :_user.user_name,
-        // }
-        // const post = {
-        //     insert_dt : moment().format("YYYY-MM-DD hh:mm:ss"),
-        //     image_src : image_src,
-        //     content : content,
-        //     content_layout : layout,
-        // }
-        // console.log("Document written with ID: ", docRef.id)
-        // history.push("/");
+        console.log(post)
+        axios.post(
+          'http://localhost:3001/result',
+           post
+        ).then(function (response){
+          window.alert('저장 성공!')
+          history.push("/");
+        }).catch(function (error){
+          console.log(error)
+        })
     }
 }
 
@@ -97,7 +94,7 @@ export default handleActions(
   // action creator export
   const actionCreators = {
     addpostTS,
-    getPostFB,
+    getPostID,
   };
   
   export { actionCreators };
