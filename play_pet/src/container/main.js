@@ -11,7 +11,7 @@ const Main = () => {
     ]
 
     React.useEffect(() => {
-        console.log('로드!')
+        console.log('로드!')  
     })
     return (
         <div> 11</div>
