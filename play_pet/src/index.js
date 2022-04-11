@@ -3,11 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './shared/App';
 import reportWebVitals from './reportWebVitals';
+import {Provider} from 'react-redux'
+import store from './redux/ConfigStore';
+import {BrowserRouter} from 'react-router-dom'
+import { ConnectedRouter, connectRouter } from 'connected-react-router';
+import { history } from './redux/ConfigStore';
+
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+    <BrowserRouter>
     <App />
-  </React.StrictMode>,
+    </BrowserRouter>
+    </ConnectedRouter>
+  </Provider>,
   document.getElementById('root')
 );
 
