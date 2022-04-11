@@ -9,10 +9,15 @@ const Main = () => {
         'https://newsimg-hams.hankookilbo.com/2021/12/19/51e4f7ad-79f8-44b7-9a5c-6354dbd55df3.jpg',
         'https://kormedi.com/wp-content/uploads/2021/12/gettyimages-1313156182-580x454.jpg',
     ]
+
+    React.useEffect(() => {
+        console.log('로드!')
+    })
     return (
-        <Container maxWidth="lg">
-            <ImageCard imagelist = {itemarray}/>
-        </Container>
+        <div> 11</div>
+        // <Container maxWidth="lg">
+        //     <ImageCard imagelist = {itemarray}/>
+        // </Container>
     );
 }
 

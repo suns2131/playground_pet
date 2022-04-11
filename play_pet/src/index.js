@@ -6,12 +6,17 @@ import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux'
 import store from './redux/ConfigStore';
 import {BrowserRouter} from 'react-router-dom'
+import { ConnectedRouter, connectRouter } from 'connected-react-router';
+import { history } from './redux/ConfigStore';
+
 
 ReactDOM.render(
   <Provider store={store}>
+    <ConnectedRouter history={history}>
     <BrowserRouter>
     <App />
     </BrowserRouter>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 );

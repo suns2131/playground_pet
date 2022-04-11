@@ -14,6 +14,8 @@ const rootReducer = combineReducers({
 
  const env = process.env.NODE_ENV;
 
+ console.log(env)
+
  if(env === "development"){
      const { logger } = require("redux-logger");
      middlewares.push(logger);

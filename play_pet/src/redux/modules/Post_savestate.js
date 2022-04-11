@@ -1,14 +1,16 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import axios, { Axios } from 'axios'
+import axios from 'axios'
+import { push } from "connected-react-router";
 
 // actions
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
 
 // action creators
-const setPost = createAction(SET_POST, (post_list) => ({post_list}));
-const addPost = createAction(ADD_POST, (post) => ({post}));
+// const setPost = createAction(SET_POST, (post_list) => ({post_list}));
+// const addPost = createAction(ADD_POST, (post) => ({post}));
+
 // 게시글 하나에는 어떤 정보가 있어야 하는 지 하나 만들어둡시다! :)
 const initialPost = {
     postid : 1,
@@ -42,23 +44,8 @@ const getPostID = (postid) => {
         .catch(function (error){
           console.log(error)
         })
-        // const postdata = getDocs(collection(db,'post'));
-        // const post_list = [];
-        // (await postdata).forEach((post) => {
-        //     console.log(post.id,post.data());
-
-        //     let _post = {
-        //         id : post.id,
-        //         ...post.data()
-        //     }
-            
-        //     post_list.push(_post);
-        // })
-        // console.log(post_list);
-        // dispatch(setPost(post_list));
     }
 }
-
 
 const addpostTS = (post) => {
     return async function (dispatch,getState,{history}){
@@ -67,8 +54,7 @@ const addpostTS = (post) => {
           'http://localhost:3001/result',
            post
         ).then(function (response){
-          window.alert('저장 성공!')
-          history.push("/");
+          history.push("/Card")
         }).catch(function (error){
           console.log(error)
         })

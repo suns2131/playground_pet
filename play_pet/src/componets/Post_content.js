@@ -16,7 +16,7 @@ const Post_content = () => {
     //state 관리
     const [title,settitle] = useState('');
     const [star,setstar] = useState(0);
-    const [wirte,setwrite] = useState(null);
+    const [wirte,setwrite] = useState('');
     const [image_src1,setimage_src1] = useState(null);
     const [image_src2,setimage_src2] = useState(null);
     const [image_src3,setimage_src3] = useState(null);
@@ -189,7 +189,8 @@ const Post_content = () => {
             </Stack>
             <Stack spacing={2} direction="row">
                     <Button variant="contained" onClick={() => {
-                        dispatch(PostActions.getPostID(3))
+                        // dispatch(PostActions.getPostID(3))
+                        history.push('/Card')
                     }}>뒤로가기</Button>
             </Stack>
         </div>
