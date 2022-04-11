@@ -23,9 +23,16 @@ const Post_content = () => {
     const [image_src4,setimage_src4] = useState(null);
     const [image_src5,setimage_src5] = useState(null);
     const [image_src6,setimage_src6] = useState(null);
+    const [image_file1,setimage_file1] = useState(null);
+    const [image_file2,setimage_file2] = useState(null);
+    const [image_file3,setimage_file3] = useState(null);
+    const [image_file4,setimage_file4] = useState(null);
+    const [image_file5,setimage_file5] = useState(null);
+    const [image_file6,setimage_file6] = useState(null);
     const history = useHistory();
     const data = useSelector((state) => state.post.list);
     const dispatch = useDispatch();
+    const post_data2 = new FormData();
 
     //input ref 관리
     const image1 = useRef(null);
@@ -75,32 +82,60 @@ const Post_content = () => {
         
         reader.onloadend = () => {
           if(!image_src1)
+          {
+            console.log('src1')
             setimage_src1(reader.result);
+            setimage_file1(file)
+          }
           else if(!image_src2)
+          {
             setimage_src2(reader.result);
+            post_data2.append('imagesrc2',file)
+            setimage_file2(file)
+          }
+            
           else if(!image_src3)
+          {
             setimage_src3(reader.result);
+            post_data2.append('imagesrc3',file)
+            setimage_file3(file)
+          }
+            
           else if(!image_src4)
+          {
             setimage_src4(reader.result);
+            post_data2.append('imagesrc4',file)
+            setimage_file4(file)
+          }
+            
           else if(!image_src5)
+          {
             setimage_src5(reader.result);
+            post_data2.append('imagesrc5',file)
+            setimage_file5(file)
+          }
+            
           else if(!image_src6)
+          {
             setimage_src6(reader.result);
+            post_data2.append('imagesrc6',file)
+            setimage_file6(file)
+          }
         }
       }
     
     const posting_shot = () => {
-        const post_data = {
-            title : title,
-            imageSrc1 : image_src1,
-            imageSrc2 : image_src2,
-            imageSrc3 : image_src3,
-            imageSrc4 : image_src4,
-            imageSrc5 : image_src5,
-            imageSrc6 : image_src6,
-            star : star,
-            content : wirte,
-        }
+       const post_data = {
+          title : title,
+          star : star,
+          content : wirte,
+          image_file1 : image_file1,
+          image_file2 : image_file2,
+          image_file3 : image_file3,
+          image_file4 : image_file4,
+          image_file5 : image_file5,
+          image_file6 : image_file6,
+       }
         dispatch(PostActions.addpostTS(post_data))
         // console.log(post_data);
     }
@@ -189,8 +224,8 @@ const Post_content = () => {
             </Stack>
             <Stack spacing={2} direction="row">
                     <Button variant="contained" onClick={() => {
-                        // dispatch(PostActions.getPostID(3))
-                        history.push('/Card')
+                        dispatch(PostActions.getPostID(3))
+                        // history.push('/Card')
                     }}>뒤로가기</Button>
             </Stack>
         </div>

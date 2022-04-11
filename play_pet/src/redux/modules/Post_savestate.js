@@ -26,13 +26,13 @@ const initialState = {
     list: [],
 }
 
-
-
 //middle wares..
 const getPostID = (postid) => {
     return async function (dispatch,getState,{history}){
         console.log(postid)
-        axios.get('http://localhost:3001/result',{
+        //'http://3.38.162.11:8080/user/login'
+        //'http://localhost:3001/result'
+        axios.get('http://3.38.162.11:8080/test1',{
           params : {
             id : postid
           }
@@ -49,12 +49,33 @@ const getPostID = (postid) => {
 
 const addpostTS = (post) => {
     return async function (dispatch,getState,{history}){
-        console.log(post)
+         console.log(post)
+        //'http://localhost:3001/result'
+        //'http://3.38.162.11:8080/user/login'
+        const postdata = new FormData();
+        postdata.append('title',post.title);
+        postdata.append('star',post.star);
+        postdata.append('content',post.content);
+        postdata.append('imagesrc1',post.image_file1);
+        postdata.append('imagesrc2',post.image_file2);
+        postdata.append('imagesrc3',post.image_file3);
+        postdata.append('imagesrc4',post.image_file4);
+        postdata.append('imagesrc5',post.image_file5);
+        postdata.append('imagesrc6',post.image_file6);
+
+        const config = {
+          Headers : {
+            'content-type' : 'multipart/form-data',
+          }
+        }
+        // postdata.append('title',post.title);
         axios.post(
-          'http://localhost:3001/result',
-           post
+          'http://localhost:3001/posts',
+          postdata,
+          config
         ).then(function (response){
-          history.push("/Card")
+          console.log(response)
+          // history.push("/Card")
         }).catch(function (error){
           console.log(error)
         })
