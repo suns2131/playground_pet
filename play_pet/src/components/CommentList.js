@@ -23,9 +23,6 @@ const CommentItem = (props) => {
   const { nickname, username, postid, content, createdAt } = props;
   return (
     <Grid is_flex>
-      {/* <Grid is_flex width="auto">
-        <Text bold>{nickname}</Text>
-      </Grid> */}
       <Grid is_flex margin="0px 4px">
         <Text bold>{nickname}</Text>
         <Text margin="0px">{content}</Text>

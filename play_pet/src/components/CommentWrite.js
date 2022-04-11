@@ -3,9 +3,11 @@ import Grid from "../elements/Grid";
 import Button from "../elements/Button";
 import Input from "../elements/Input";
 
+import { actionCreators as commentActions } from "../redux/modules/comment";
 import { useDispatch } from "react-redux";
 
 const CommentWrite = (props) => {
+  const dispatch = useDispatch();
   const [content, setContent] = React.useState();
 
   const { postid } = props;
@@ -15,13 +17,15 @@ const CommentWrite = (props) => {
   };
 
   const write = () => {
+    dispatch(commentActions.addCommentFB(postid, content));
     console.log(content);
     setContent("");
   };
   return (
     <React.Fragment>
-      <Grid padding="16px" is_flex>
+      <Grid bg={"#EFF6FF"} padding="16px" is_flex>
         <Input
+          label="댓글 남기기"
           placeholder="댓글 내용을 입력해주세요 ;)"
           _onChange={onChange}
           value={content}

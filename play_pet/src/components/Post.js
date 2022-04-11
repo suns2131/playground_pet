@@ -9,7 +9,7 @@ const Post = (props) => {
   return (
     <React.Fragment>
       <Grid bg={"#EFF6FF"}>
-        <Grid bg={"#FFCCCC"} padding="16px">
+        <Grid padding="16px">
           <Grid is_flex width="auto">
             <Text bold>상호명: {props.title}</Text>
             <Text bold>글쓴이: {props.nickname}</Text>
