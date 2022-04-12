@@ -3,17 +3,29 @@ import Grid from "../elements/Grid";
 import Image from "../elements/Image";
 import Text from "../elements/Text";
 import Button from "../elements/Button";
-// import { history } from "../redux/ConfigStore";
+import { history } from "../redux/ConfigStore";
 
 const Post = (props) => {
   return (
     <React.Fragment>
       <Grid bg={"#EFF6FF"}>
-        <Grid bg={"#FFCCCC"} padding="16px">
+        <Grid padding="16px">
           <Grid is_flex width="auto">
             <Text bold>상호명: {props.title}</Text>
             <Text bold>글쓴이: {props.nickname}</Text>
             <Text>작성시간: {props.createdAt}</Text>
+            {props.is_me && (
+            <Button
+              width="auto"
+              padding="4px"
+              margin="4px"
+              _onClick={() => {
+                history.push(`/write/${props.id}`);
+              }}
+            >
+              수정
+            </Button>
+          )}
           </Grid>
         </Grid>
 
