@@ -3,18 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './shared/App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-import {Provider} from "react-redux";
-import store from "./redux/ConfigStore";
-import {history} from "./redux/ConfigStore";
-import {ConnectedRouter} from "connected-react-router";
+import {Provider} from 'react-redux'
+import store from './redux/ConfigStore';
+import {BrowserRouter} from 'react-router-dom'
+import { ConnectedRouter, connectRouter } from 'connected-react-router';
+import { history } from './redux/ConfigStore';
+
 
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <BrowserRouter>
-      <App/>
-      </BrowserRouter>
+    <BrowserRouter>
+    <App />
+    </BrowserRouter>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root')

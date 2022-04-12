@@ -4,7 +4,8 @@ import axios from "axios";
 
 const SET_POST = "SET_POST";
 const EDIT_POST = "EDIT_POST";
-const LOADING = "LOADING";
+const DELETE_POST = "DELETE_POST";
+// const LOADING = "LOADING";
 
 const setPost = createAction(SET_POST, (post_list, paging) => ({
   post_list,
@@ -13,6 +14,9 @@ const setPost = createAction(SET_POST, (post_list, paging) => ({
 const editPost = createAction(EDIT_POST, (postid, post) => ({
   postid,
   post,
+}));
+const deletePost = createAction(DELETE_POST, (postid) => ({
+  postid,
 }));
 // const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
@@ -32,60 +36,95 @@ const initialPost = {
   content: "최고의 강아지 놀이터",
 };
 
-// editPostFB put방식 ??
-const editPostFB = (postid = null, post = {}) => {
-    return async function (dispatch, getState, {history}){
-        axios.put("http://localhost:3001/result")
-    }
-}
+// editPostFB put방식 ?? formdata
+const editPostFB = (postid, title, content, imageSrc, star, username) => {
+  return async function (dispatch, getState, { history }) {
+    const form = new FormData();
 
-// page는 무슨 값으로 넘기지?
-const getPostFB = (start = null, size = 3) => {
-  return async function (diapatch, getState, { history }) {
-   axios.get("http://localhost:3001/result",{
-       params: {
-           page: null,
-       },
-   })
-   .then(function(response){
-       console.log(response);
-   })
-   .catch(function(error){
-       console.log(error);
-   });
+    form.append('postid', postid)
+    form.append('title', title)
+    form.append('content', content)
+    form.append('imageSrc', imageSrc)
+    form.append('star', star)
+    form.append('username', username)
+
+    axios
+      .put(
+        "http://localhost:3001/result",
+       form
+      )
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 };
 
+
+const getPostFB = (start = null, size = 3, page = null) => {
+  return async function (dispatch, getState, { history }) {
+    axios
+      .get("http://localhost:3001/result", {
+        params: {
+          page: page,
+        },
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+};
+
+const deletePostFB = (postid) => {
+  return async function (dispatch, getState, {history}) {
+    axios
+    .delete("http://localhost:3001/result")
+    .then(function(response){
+      window.alert("삭제 완료되었습니다.");
+      window.location.href="/";
+    })
+  }
+}
+
 export default handleActions(
-    {
-        [SET_POST]: (state, action) =>
-        produce(state, (draft) => {
-            draft.list.push(...action.payload.post_list);
+  {
+    [SET_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list.push(...action.payload.post_list);
 
-            draft.list = draft.list.reduce((acc, cur) => {
-                if (acc.findIndex((a) => a.id === cur.id) === -1){
-                    return [...acc, cur];
-                } else {
-                    acc[acc.findIndex((a) => a.id === cur.id)] = cur;
-                    return acc;
-                }
-            }, []);
+        draft.list = draft.list.reduce((acc, cur) => {
+          if (acc.findIndex((a) => a.id === cur.id) === -1) {
+            return [...acc, cur];
+          } else {
+            acc[acc.findIndex((a) => a.id === cur.id)] = cur;
+            return acc;
+          }
+        }, []);
 
-            if (action.payload.paging){
-                draft.paging = action.payload.paging;
-            }
+        if (action.payload.paging) {
+          draft.paging = action.payload.paging;
+        }
 
-            // draft.is_loading = false;
-        }),
+        // draft.is_loading = false;
+      }),
 
-        [EDIT_POST]: (state, action) => 
-        produce(state, (draft) => {
-            let idx = draft.list.findIndex((p) => p.id === action.payload.postid);
+    [EDIT_POST]: (state, action) =>
+      produce(state, (draft) => {
+        let idx = draft.list.findIndex((p) => p.id === action.payload.postid);
 
-            draft.list[idx] = {...draft.list[idx], ...action.payload.post};
-        }),
-    },
-    initialState
+        draft.list[idx] = { ...draft.list[idx], ...action.payload.post };
+      }),
+
+    [DELETE_POST]: (state, action) => produce(state, (draft) => {
+
+    }),
+  },
+  initialState
 );
 
 const actionCreators = {
@@ -93,6 +132,8 @@ const actionCreators = {
   editPost,
   getPostFB,
   editPostFB,
+  deletePost,
+  deletePostFB,
 };
 
 export { actionCreators };
