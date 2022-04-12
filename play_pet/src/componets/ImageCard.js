@@ -32,15 +32,15 @@ const ImageCard = (props) => {
 
 const Card_style = styled.div`
   .img_container{
-    width: 300px;
+    width: 100%;
   }
   .img_div{
     background-color: red;
   }
   img{
     object-fit:cover;
-    width : 300px;
-    height: 300px;
+    width : 100%;
+    height: 100%;
 
   }
 `;

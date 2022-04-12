@@ -11,10 +11,17 @@ const setPost = createAction(SET_POST, (post_list, paging) => ({
   post_list,
   paging,
 }));
+
+const addPost = createAction(ADD_POST, (post) => ({ post }));
+
+
 const editPost = createAction(EDIT_POST, (postid, post) => ({
   postid,
   post,
 }));
+
+const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
+
 const deletePost = createAction(DELETE_POST, (postid) => ({
   postid,
 }));
