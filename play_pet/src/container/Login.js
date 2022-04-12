@@ -7,6 +7,7 @@ import Input from "../elements/Input";
 import { getCookie, setCookie, deleteCookie } from "../shared/Cookie";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { KAKAO_AUTH_URL } from "../componets/Kakao_auth";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -56,12 +57,11 @@ const Login = (props) => {
             login(e);
           }}
         ></Button>
-        <Button margin ="10px 0px"
-          text="카카오 로그인하기"
-          _onClick={(e) => {
-            login(e);
-          }}
-        ></Button>
+        <a href={KAKAO_AUTH_URL}>
+                    <div className="kakao_btn" >
+                        <img src="../images/kakao_login_medium_narrow.png"/>
+                    </div>
+        </a>
       </Grid>
     </React.Fragment>
   );

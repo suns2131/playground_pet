@@ -51,7 +51,7 @@ const getPostID = (postid) => {
 }
 
 const addpostTS = (post) => {
-    return async function (dispatch,getState,{history}){
+    return async function ({history}){
          console.log(post)
         const postdata = new FormData();
         postdata.append('title',post.title);
@@ -79,7 +79,7 @@ const addpostTS = (post) => {
         ).then(function (response){
            console.log(response)
            history.push("/list")
-           window.location.replace("/list")
+          //  window.location.replace("/list")
         }).catch(function (error){
           console.log(error)
         })

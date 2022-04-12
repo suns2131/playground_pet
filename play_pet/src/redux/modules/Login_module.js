@@ -29,12 +29,14 @@ const getLogin_kakao = (code) => {
         }
         //15.164.96.141/user/kakao/callback
         //http://localhost:3001/posts
-        axios.post("http://15.164.96.141/user/kakao/callback",
+        axios.post("http://localhost:3001/posts",
         data
         )
         .then(function (response){
+          console.log('response')
             console.log(response)
-            // history.push('/list')
+            console.log(history)
+            history.push('/list')
             // window.location.replace("/list")
         })
         .catch(function (error){
