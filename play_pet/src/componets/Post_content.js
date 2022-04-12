@@ -224,8 +224,8 @@ const Post_content = () => {
             </Stack>
             <Stack spacing={2} direction="row">
                     <Button variant="contained" onClick={() => {
-                        dispatch(PostActions.getPostID(3))
-                        // history.push('/Card')
+                        // dispatch(PostActions.getPostID(3))
+                        history.push('/list')
                     }}>뒤로가기</Button>
             </Stack>
         </div>
