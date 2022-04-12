@@ -1,7 +1,6 @@
 import Posting from './container/Posting';
 import { Route, Switch } from 'react-router-dom';
 import ImageCard from './componets/ImageCard';
-import Main from './container/main';
 import PostList from './container/PostList';
 import Login from './container/Login';
 import Signup from './container/Signup';
@@ -13,7 +12,6 @@ function App() {
     <div className="App">
       <Switch>
         <Route path={'/'} exact component={Login} />
-        <Route path={'/Card'} exact component={Main} />
         <Route path={'/list'} exact component={List_post}/>
         <Route path={'/post'} exact component={Posting} />
         <Route path={'/Signup'} exact component={Signup} />

@@ -8,6 +8,7 @@ import { getCookie, setCookie, deleteCookie } from "../shared/Cookie";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { KAKAO_AUTH_URL } from "../componets/Kakao_auth";
+import Headers from "../shared/Headers";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const Login = (props) => {
 
   return (
     <React.Fragment>
+      <Headers />
       <Grid padding="16px">
         <Text size="32px" bold>
           로그인
