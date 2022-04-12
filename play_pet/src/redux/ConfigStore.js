@@ -32,4 +32,3 @@ const composeEnhancers =
 let store = () => createStore(rootReducer, enhancer);
 
 export default store();
-
