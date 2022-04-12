@@ -5,9 +5,8 @@ import Text from "../elements/Text";
 import Button from "../elements/Button";
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-// import { history } from "../redux/ConfigStore";
+import { history } from "../redux/ConfigStore";
 import ImageCard from "../componets/ImageCard";
-
 
 const Post = (props) => {
   const imgs = [];

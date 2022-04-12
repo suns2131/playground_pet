@@ -1,14 +1,17 @@
 import React from "react";
-import Grid from "../elements/Grid";
-import Image from "../elements/Image";
-import Text from "../elements/Text";
-import Button from "../elements/Button";
-import Input from "../elements/Input";
-import { getCookie, setCookie, deleteCookie } from "../shared/Cookie";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { KAKAO_AUTH_URL } from "../componets/Kakao_auth";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Headers from "../shared/Headers";
+import { KAKAO_AUTH_URL } from "../componets/Kakao_auth";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -18,53 +21,83 @@ const Login = (props) => {
 
   const login = () => {
     if (id === "" || pwd === "") {
-      window.alert("아이디 혹은 비밀번호가 공란입니다! 입력해주세에요");
+      window.alert("아이디 또는 비밀번호가 비어있습니다! 입력해주세요");
       return;
     }
     dispatch(userActions.loginFB(id, pwd));
   };
+  const theme = createTheme();
 
   return (
     <React.Fragment>
-      <Headers />
-      <Grid padding="16px">
-        <Text size="32px" bold>
-          로그인
-        </Text>
-
-        <Grid padding="16px 0px">
-          <Input
-            label="아이디"
-            placeholder="아이디를 입력해주세요."
-            _onChange={(e) => {
-              setId(e.target.value);
+      <Headers/>
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
-          />
-        </Grid>
-
-        <Grid padding="16px 0px">
-          <Input
-            label="패스워드"
-            placeholder="패스워드 입력해주세요."
-            type="password"
-            _onChange={(e) => {
-              setPwd(e.target.value);
-            }}
-          />
-        </Grid>
-
-        <Button
-          text="로그인하기"
-          _onClick={(e) => {
-            login(e);
-          }}
-        ></Button>
-        <a href={KAKAO_AUTH_URL}>
+          >
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              로그인
+            </Typography>
+             <a href={KAKAO_AUTH_URL}>
                     <div className="kakao_btn" >
-                        <img src="../images/kakao_login_medium_narrow.png"/>
+                        <img src="../images/kakao_login_medium_wide.png"/>
                     </div>
-        </a>
-      </Grid>
+            </a>
+            <Typography component="h1" variant="h5">
+              또는
+            </Typography>
+            <Box component="form" noValidate sx={{ mt: 1 }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="ID"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                onChange={(e) => {
+                  setId(e.target.value);
+                }}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={(e) => {
+                  setPwd(e.target.value);
+                }}
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={(e) => {
+                  login(e);
+                }}
+              >
+                로그인
+              </Button>
+            </Box>
+          </Box>
+        </Container>
+      </ThemeProvider>
     </React.Fragment>
   );
 };
