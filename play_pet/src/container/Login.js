@@ -1,58 +1,70 @@
 import React from "react";
+import Grid from "../elements/Grid";
+import Image from "../elements/Image";
+import Text from "../elements/Text";
+import Button from "../elements/Button";
+import Input from "../elements/Input";
+import { getCookie, setCookie, deleteCookie } from "../shared/Cookie";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import styled from "styled-components";
-import queryString from "query-string"
-import { KAKAO_AUTH_URL } from "../componets/Kakao_auth";
-import {actionCreators as LoginActions} from '../redux/modules/Login_module'
+import { actionCreators as userActions } from "../redux/modules/user";
 
-const Login = () => {
-    const history = useHistory();
-    const dispatch = useDispatch();
-    const query = queryString.parse(window.location.search);
+const Login = (props) => {
+  const dispatch = useDispatch();
 
-    React.useEffect(() => {
-        if(query.code){
-            console.log(query.code.toString());
-        }
-    },[])
+  const [id, setId] = React.useState("");
+  const [pwd, setPwd] = React.useState("");
 
-    const kakao_login = () => {
-        dispatch(LoginActions.getLogin_kakao(''));
+  const login = () => {
+    if (id === "" || pwd === "") {
+      window.alert("아이디 혹은 비밀번호가 공란입니다! 입력해주세에요");
+      return;
     }
+    dispatch(userActions.loginFB(id, pwd));
+  };
 
-    return (
-        <div>
-            <h1>로그인화면입니다.</h1>
-            <input type="text" />
-            <input type="password"/>
-            <button onClick={() => {
-                history.push('/list')
-            }}>로그인</button>
-            <button onClick={() => {
-                history.push('/Signup')
-            }}>회원가입</button>
-               <div>
-                <a href={KAKAO_AUTH_URL}>
-                    <div className="kakao_btn" >
-                        <img src="../images/kakao_login_medium_narrow.png"/>
-                    </div>
-               </a>
-               </div>
-        </div>
-    );
-}
+  return (
+    <React.Fragment>
+      <Grid padding="16px">
+        <Text size="32px" bold>
+          로그인
+        </Text>
 
-const Kakao_design = styled.div`
-    .kakao_btn{
-        /* background-color: red; */
-        background-repeat: no-repeat;
-        background-size : cover;
-        margin: 10px auto;
-        color: transparent;
-        width: 600px;
-        height: 80px;
-    }
-`;
+        <Grid padding="16px 0px">
+          <Input
+            label="아이디"
+            placeholder="아이디를 입력해주세요."
+            _onChange={(e) => {
+              setId(e.target.value);
+            }}
+          />
+        </Grid>
 
-export default Login
+        <Grid padding="16px 0px">
+          <Input
+            label="패스워드"
+            placeholder="패스워드 입력해주세요."
+            type="password"
+            _onChange={(e) => {
+              setPwd(e.target.value);
+            }}
+          />
+        </Grid>
+
+        <Button
+          text="로그인하기"
+          _onClick={(e) => {
+            login(e);
+          }}
+        ></Button>
+        <Button margin ="10px 0px"
+          text="카카오 로그인하기"
+          _onClick={(e) => {
+            login(e);
+          }}
+        ></Button>
+      </Grid>
+    </React.Fragment>
+  );
+};
+
+export default Login;
