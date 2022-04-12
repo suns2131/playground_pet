@@ -17,7 +17,7 @@ function App() {
         <Route path={'/list'} exact component={List_post}/>
         <Route path={'/post'} exact component={Posting} />
         <Route path={'/Signup'} exact component={Signup} />
-        <Route path={'/auth/kakao/callback'} component = {Login_Kakao}/>
+        <Route path={'/user/kakao/callback'} component = {Login_Kakao}/>
       </Switch>
     </div>
   );

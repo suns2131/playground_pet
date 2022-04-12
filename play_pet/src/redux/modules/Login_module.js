@@ -25,15 +25,17 @@ const getLogin_kakao = (code) => {
     return async function (dispatch,getState,{history}){
         console.log('login start')
         const data = {
-            Authcode : code
+            code : code
         }
-        axios.post("http://localhost:3001/posts",
+        //15.164.96.141/user/kakao/callback
+        //http://localhost:3001/posts
+        axios.post("http://15.164.96.141/user/kakao/callback",
         data
         )
         .then(function (response){
             console.log(response)
             // history.push('/list')
-            window.location.replace("/list")
+            // window.location.replace("/list")
         })
         .catch(function (error){
 

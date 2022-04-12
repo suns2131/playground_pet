@@ -30,9 +30,12 @@ const initialState = {
 const getPostID = (postid) => {
     return async function (dispatch,getState,{history}){
         console.log(postid)
+
+        //3.38.162.11:8080/api/posts/comment/
+
         //'http://3.38.162.11:8080/user/login'
         //'http://localhost:3001/result'
-        axios.get('http://3.38.162.11:8080/test1',{
+        axios.get('http://3.38.162.11:8080/api/posts/comment/',{
           params : {
             id : postid
           }
