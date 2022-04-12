@@ -1,36 +1,42 @@
+
 import {createStore,combineReducers, applyMiddleware, compose} from 'redux'
 import {connectRouter} from 'connected-react-router';
 import {createBrowserHistory} from 'history'
 import thunk from 'redux-thunk'
 import Post from "./modules/Post_savestate"
 import Login from "./modules/Login_module"
+import Comment from "./modules/comment";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
-    Login : Login,
-    post : Post,
-    router : connectRouter(history),
+  Login : Login,
+  post: Post,
+  comment: Comment,
+  router: connectRouter(history),
+
 });
- const middlewares = [thunk.withExtraArgument({history:history})];
 
- const env = process.env.NODE_ENV;
+const middlewares = [thunk.withExtraArgument({history:history})];
 
- console.log(env)
+// 지금이 어느 환경인 지 알려줘요. (개발환경, 프로덕션(배포)환경 ...)
+const env = process.env.NODE_ENV;
 
- if(env === "development"){
-     const { logger } = require("redux-logger");
-     middlewares.push(logger);
- }
+// 개발환경에서는 로거라는 걸 하나만 더 써볼게요.
+if (env === "development") {
+  const { logger } = require("redux-logger");
+  middlewares.push(logger);
+}
 
 const composeEnhancers =
-    typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-      ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        })
-      : compose; 
+  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+      })
+    : compose;
 
- const enhancer = composeEnhancers(applyMiddleware(...middlewares));
+const enhancer = composeEnhancers(applyMiddleware(...middlewares));
 
-let store = () => createStore(rootReducer, enhancer);
+let store = (initialStore) => createStore(rootReducer, enhancer);
 
 export default store();

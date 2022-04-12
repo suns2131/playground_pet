@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 // import { history } from "../redux/ConfigStore";
 import ImageCard from "../componets/ImageCard";
 
+
 const Post = (props) => {
   const imgs = [];
   const [star,setstar] = useState(0);
@@ -17,11 +18,23 @@ const Post = (props) => {
   return (
     <React.Fragment>
       <Grid bg={"#EFF6FF"}>
-        <Grid bg={"#FFCCCC"} padding="16px">
+        <Grid padding="16px">
           <Grid is_flex width="auto">
             <Text bold>상호명: {props.title}</Text>
             <Text bold>글쓴이: {props.nickname}</Text>
             <Text>작성시간: {props.createdAt}</Text>
+            {props.is_me && (
+            <Button
+              width="auto"
+              padding="4px"
+              margin="4px"
+              _onClick={() => {
+                history.push(`/write/${props.id}`);
+              }}
+            >
+              수정
+            </Button>
+          )}
           </Grid>
         </Grid>
 

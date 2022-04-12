@@ -8,12 +8,13 @@ import Button from "../elements/Button";
 import { BrowserRouter, Route } from "react-router-dom";
 import CommentList from "../components/CommentList";
 import CommentWrite from "../components/CommentWrite";
+import PostDetail from "../container/PostDetail";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Route path="/" exact component={PostList} />
+        <Route path="/" exact component={PostDetail} />
         <Button is_float text="+" _onClick={() => {history.push("/write");}} ></Button>
       </BrowserRouter>
     </>
