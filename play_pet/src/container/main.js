@@ -3,8 +3,6 @@ import Container from '@mui/material/Container';
 import Post_content from '../componets/Post_content';
 import ImageCard from '../componets/ImageCard';
 
-const a = 1;
-
 const Main = () => {
     const itemarray = [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdfZio88ahT78tAP7zTa6GVOodu5w1qDfkifBz-JqMR27AEM3wF1LIrGoQB46GArniaQ4&usqp=CAU',
