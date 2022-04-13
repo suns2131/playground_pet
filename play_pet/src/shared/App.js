@@ -6,11 +6,8 @@ import PostList from "../container/PostList";
 import Button from "@mui/material/Button";
 import Grid from "../elements/Grid";
 // import Permit from "./Permit";
-// import Button from "../elements/Button";
 
 import { BrowserRouter, Route } from "react-router-dom";
-import CommentList from "../components/CommentList";
-import CommentWrite from "../components/CommentWrite";
 import PostDetail from "../container/PostDetail";
 
 function App() {
