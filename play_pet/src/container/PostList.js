@@ -8,7 +8,6 @@ import { actionCreators as postActions } from "../redux/modules/post";
 import InfinityScroll from "../shared/InfinityScroll";
 import Grid from "../elements/Grid";
 import Headers from "../shared/Headers";
-// import Permit from "../shared/Permit";
 
 const PostList = (props) => {
 
@@ -74,13 +73,11 @@ const PostList = (props) => {
           )}
         </InfinityScroll>
       {/* </Grid> */}
-      {/* <Permit> */}
         <BtnDiv margin="0px 20px 0px 500px">
           <Button variant="contained" component="span" onClick={() => {history.push("/post");}}>
             후기 작성하기
           </Button>
         </BtnDiv>
-      {/* </Permit> */}
     </React.Fragment>
   );
 };

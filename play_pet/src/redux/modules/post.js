@@ -122,7 +122,7 @@ export default handleActions(
           draft.paging = action.payload.paging;
         }
 
-        // draft.is_loading = false;
+        draft.is_loading = false;
       }),
 
     [EDIT_POST]: (state, action) =>

@@ -2,6 +2,7 @@ import Posting from "./container/Posting";
 import { Route, Switch } from "react-router-dom";
 import ImageCard from "./componets/ImageCard";
 import PostList from "./container/PostList";
+import Post from "./components/Post";
 import Login from "./container/Login";
 import Signup from "./container/Signup";
 import List_post from "./container/List_post";
@@ -18,7 +19,6 @@ function App() {
         <Route path={"/Signup"} exact component={Signup} />
         <Route path={"/user/kakao/callback"} exact component={Login_Kakao} />
         <Route path={"/Detail/:postid"} exact component={PostDetail} />
-        
       </Switch>
     </div>
   );
