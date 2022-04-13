@@ -56,6 +56,7 @@ const Post = (props) => {
             </Button>
           )}
           </Grid>
+          </Grid>
         <Grid margin="30px 0px 0px 0px">
           <ImageCard imagelist = {imgs}/>
         </Grid>
@@ -93,9 +94,11 @@ const Post = (props) => {
             </Stack>
             </div>
           </Grid>
+          </Grid>
 
         <Grid padding="16px">
           <Text>{post_data.content}</Text>
+        </Grid>
         </Grid>
       </React.Fragment>
   );
