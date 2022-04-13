@@ -10,9 +10,11 @@ import Grid from "../elements/Grid";
 const PostList = (props) => {
   const dispatch = useDispatch();
   const post_list = useSelector((state) => state.post.list);
+  console.log(post_list); // 빈 배열
   // const user_info = useSelector((state) => state.user.user);
   // const is_loading = useSelector((state) => state.post.is_loading);
   const paging = useSelector((state) => state.post.paging);
+  console.log(paging);
 
   const { history } = props;
 
@@ -35,32 +37,33 @@ const PostList = (props) => {
           {post_list.map((p, idx) => {
             console.log(p);
             // if (user_info && p.user_info.user_id === user_info.uid) {
-              return (
-                <Grid
-                  bg="#ffffff"
-                  margin="15px 0px"
-                  key={p.id}
-                  _onClick={() => {
-                    history.push(`/post/${p.id}`);
-                  }}
-                >
-                  <Post {...p} is_me />
-                </Grid>
-              );
-            // } else {
             //   return (
             //     <Grid
             //       bg="#ffffff"
+            //       margin="15px 0px"
             //       key={p.id}
             //       _onClick={() => {
             //         history.push(`/post/${p.id}`);
             //       }}
             //     >
-            //       <Post {...p} />
+            //       <Post {...p} is_me />
             //     </Grid>
             //   );
-            // }
-          })}
+            // } else {
+              return (
+                <Grid
+                  bg="#ffffff"
+                  key={p.id}
+                  _onClick={() => {
+                    history.push(`/post/${p.id}`);
+                  }}
+                >
+                  <Post {...p} />
+                </Grid>
+              );
+            }
+          // }
+          )}
         </InfinityScroll>
       </Grid>
     </React.Fragment>
