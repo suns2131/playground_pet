@@ -14,15 +14,14 @@ const setPost = createAction(SET_POST, (post_list, paging) => ({
 }));
 
 const addPost = createAction(ADD_POST, (post) => ({ post }));
-
-
 const editPost = createAction(EDIT_POST, (postid, post) => ({
   postid,
   post,
 }));
 
-const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
+
+const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 const deletePost = createAction(DELETE_POST, (postid) => ({
   postid,
 }));
@@ -74,7 +73,7 @@ const editPostFB = (postid, title, content, imageSrc, star, username) => {
 const getPostFB = (start = null, size = 3, page = null) => {
   return async function (dispatch, getState, { history }) {
     axios
-      .get("http://localhost:3001/result", {
+      .get("http://15.164.96.141/api/posts", {
         params: {
           page: page,
         },
