@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <Switch>
         <Route path={'/'} exact component={Login} />
-        <Route path={'/list'} exact component={List_post}/>
+        <Route path={'/list'} exact component={PostList}/>
         <Route path={'/post'} exact component={Posting} />
         <Route path={'/Signup'} exact component={Signup} />
         <Route path={'/user/kakao/callback'} exact component = {Login_Kakao}/>
@@ -23,3 +23,4 @@ function App() {
   );
 }
 export default App;
+

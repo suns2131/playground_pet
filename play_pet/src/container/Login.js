@@ -26,12 +26,10 @@ const Login = (props) => {
     }
     dispatch(userActions.loginFB(id, pwd));
   };
-  const theme = createTheme();
 
   return (
     <React.Fragment>
       <Headers/>
-      <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <Box
@@ -56,15 +54,12 @@ const Login = (props) => {
             <Typography component="h1" variant="h5">
               또는
             </Typography>
-            <Box component="form" noValidate sx={{ mt: 1 }}>
+            <Box noValidate sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                id="email"
                 label="ID"
-                name="email"
-                autoComplete="email"
                 autoFocus
                 onChange={(e) => {
                   setId(e.target.value);
@@ -74,10 +69,7 @@ const Login = (props) => {
                 margin="normal"
                 required
                 fullWidth
-                name="password"
                 label="Password"
-                type="password"
-                id="password"
                 autoComplete="current-password"
                 onChange={(e) => {
                   setPwd(e.target.value);
@@ -97,7 +89,6 @@ const Login = (props) => {
             </Box>
           </Box>
         </Container>
-      </ThemeProvider>
     </React.Fragment>
   );
 };
