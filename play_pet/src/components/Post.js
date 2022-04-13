@@ -3,14 +3,14 @@ import Grid from "../elements/Grid";
 import Image from "../elements/Image";
 import Text from "../elements/Text";
 import Button from "../elements/Button";
-import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
+import Rating from "@mui/material/Rating";
+import Typography from "@mui/material/Typography";
 import { history } from "../redux/ConfigStore";
 import ImageCard from "../componets/ImageCard";
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
 import { pink } from "@mui/material/colors";
 
 const Post = (props) => {
@@ -32,74 +32,84 @@ const Post = (props) => {
         setheart(true);
   }
 
-  return (
-  <React.Fragment>
-    <Grid bg={"#EFF6FF"}>
-        <Grid padding="16px">
-          <Grid is_flex width="auto">
+return (
+<React.Fragment>
+  <Grid bg={"#EFF6FF"}>
+    <Grid padding="16px">
+      <Grid is_flex width="auto">
             <Text bold>{post_data?.title}</Text>
             <Text bold>글쓴이: {post_data?.nickname}</Text>
             <Text>작성시간: {post_data?.createdAt}</Text>
             {props.is_me && (
-            <Button
-              width="auto"
-              padding="4px"
-              margin="4px"
-              _onClick={() => {
-                history.push(`/write/${post_data?.postid}`);
-              }}
-            >
-              수정
-            </Button>
-          )}
-          </Grid>
-        </Grid>
+              <Button
+                width="auto"
+                padding="4px"
+                margin="4px"
+                _onClick={() => {
+                  history.push(`/write/${post_data[0].postid}`);
+                }}
+              >
+                수정
+              </Button>
+            )}
+      </Grid>
+      <Grid margin="30px 0px 0px 0px">
+        <ImageCard imagelist={imgs} />
+      </Grid>
 
-        <Grid margin="30px 0px 0px 0px">
-          <ImageCard imagelist = {imgs}/>
-        </Grid>
+      <Grid margin="30px 0px 0px 0px">
+        <ImageCard imagelist = {imgs}/>
+      </Grid>
 
-        <Grid padding="16px">
-          <Grid is_flex width="auto">
-            <Text margin="0px" bold>
-              <div>
-                <Typography component="legend">별점</Typography>
-                <Rating
-                    name="simple-controlled"
-                    readOnly
-                    value={star}
-                    size= "large"
-                    onChange={(event, newValue) => {
-                    setstar(newValue);
-                    }}
-                />
-              </div>
-            </Text>
-            <div className="favorite_icon">
-              <Text margin="0px" bold>
-                좋아요 {post_data?.good}개
-              </Text>
-              <Stack direction="row" spacing={1}>
-                  {heart_state === true ? 
-                      <IconButton aria-label="Favorite" onClick={heart_click} >
-                          <FavoriteIcon sx={{ fontSize: 50, color : pink[400] }}/>
-                      </IconButton>
-                      : 
-                      <IconButton aria-label="FavoriteBorder" onClick={heart_click}>
-                          <FavoriteBorderIcon sx={{ fontSize: 50, color : pink[400] }}/>
-                      </IconButton>
-                  }
-              </Stack>
+      <Grid padding="16px">
+        <Grid is_flex width="auto">
+          <Text margin="0px" bold>
+            <div>
+              <Typography component="legend">별점</Typography>
+              <Rating
+                name="simple-controlled"
+                readOnly
+                value={star}
+                size="large"
+                onChange={(event, newValue) => {
+                setstar(newValue);
+                }}
+              />
             </div>
+          </Text>
+          <div className="favorite_icon">
+            <Text margin="0px" bold>
+              좋아요 {post_data.good}개
+            </Text>
+            <Stack direction="row" spacing={1}>
+              {heart_state === true ? (
+                <IconButton aria-label="Favorite" onClick={heart_click}>
+                  <FavoriteIcon sx={{ fontSize: 50, color: pink[400] }} />
+                </IconButton>
+                ) : (
+                <IconButton
+                  aria-label="FavoriteBorder"
+                  onClick={heart_click}
+                  >
+                  <FavoriteBorderIcon
+                    sx={{ fontSize: 50, color: pink[400] }}
+                  />
+                </IconButton>)
+              }
+            </Stack>
+          </div>
+        </Grid>
+        <Grid>
+          <Grid padding="16px">
+            <Text>{post_data.content}</Text>
           </Grid>
         </Grid>
-        <Grid padding="16px">
-          <Text>{post_data?.content}</Text>
-        </Grid>
+      </Grid>
     </Grid>
-  </React.Fragment>
-  );
-};
+  </Grid>
+</React.Fragment>
+);
+            }
 
 Post.defaultProps = {
   title: "레인바우",
