@@ -24,10 +24,21 @@ const initialState = {
 // 미들 웨어
 const addCommentFB = (postid, username, content) => {
   return async function (dispatch, getState, { history }) {
-    axios
-      .post("http://localhost:3001/result", postid, username, content)
+    const cur_state = getState();
+    const comment_data = {
+        postid : postid,
+        username : username,
+        content: content,
+    }
+    //http://localhost:3001/comments
+    //http://15.164.96.141/api/posts
+    axios.post("http://localhost:3001/comments",
+       comment_data
+      )
       .then(function (response) {
-        console.log(response);
+        console.log(response.data);
+        
+        dispatch(addComment(postid,response.data))
       })
       .catch(function (error) {
         console.log(error);
@@ -37,17 +48,22 @@ const addCommentFB = (postid, username, content) => {
 
 const getCommentFB = (postid) => {
   return async function (dispatch, getState, { history }) {
+    console.log('postid');
     console.log(postid);
+    //http://localhost:3001/comments
+    //http://15.164.96.141/api/posts/comment
     axios
-      .get("http://localhost:3001/result", {
+      .get("http://15.164.96.141/api/posts/comment", {
         params: {
-          id: postid,
+          postid: postid,
         },
       })
       .then(function (response) {
-        console.log(response);
+        let comment_list = [...response.data].reverse();
+         dispatch(setCommnet(postid,comment_list))
       })
       .catch(function (error) {
+        console.log('error');
         console.log(error);
       });
   };
@@ -58,6 +74,8 @@ export default handleActions(
   {
     [SET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
+        console.log('reducer data')
+        console.log(action.payload.comment_list)
         draft.list[action.payload.postid] = action.payload.comment_list;
       }),
 

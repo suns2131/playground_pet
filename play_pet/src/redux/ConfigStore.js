@@ -6,10 +6,12 @@ import thunk from 'redux-thunk'
 import Post from "./modules/Post_savestate"
 import Login from "./modules/Login_module"
 import Comment from "./modules/comment";
+import Like_module from './modules/Like_module';
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
+  Like : Like_module,
   Login : Login,
   post: Post,
   comment: Comment,

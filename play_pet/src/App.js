@@ -6,6 +6,7 @@ import Login from './container/Login';
 import Signup from './container/Signup';
 import List_post from './container/List_post';
 import Login_Kakao from './componets/Login_kakao';
+import PostDetail from './container/PostDetail';
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         <Route path={'/list'} exact component={List_post}/>
         <Route path={'/post'} exact component={Posting} />
         <Route path={'/Signup'} exact component={Signup} />
-        <Route path={'/user/kakao/callback'} component = {Login_Kakao}/>
+        <Route path={'/user/kakao/callback'} exact component = {Login_Kakao}/>
+        <Route path={'/Detail/:postid'} exact component = {PostDetail}/>
       </Switch>
     </div>
   );
