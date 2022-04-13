@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Grid = (props) => {
   // Post elements들을 Grid안에 감싸줬기 때문에 Post elements을 children으로 받아옴
-  const { is_flex, width, padding, margin, bg, children, center } =
+  const { is_flex, width, padding, margin, bg, children, center, _onClick } =
     props;
 
   const styles = {
@@ -16,7 +16,7 @@ const Grid = (props) => {
   };
   return (
     <React.Fragment>
-      <GridBox {...styles}>{children}</GridBox>
+      <GridBox {...styles} onClick={_onClick}>{children}</GridBox>
     </React.Fragment>
   );
 };
@@ -29,6 +29,7 @@ Grid.defaultProps = {
   margin: false,
   bg: false,
   center: false,
+  _onClick: () => {},
 };
 
 const GridBox = styled.div`

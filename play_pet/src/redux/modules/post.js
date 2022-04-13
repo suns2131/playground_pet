@@ -8,9 +8,9 @@ const EDIT_POST = "EDIT_POST";
 const DELETE_POST = "DELETE_POST";
 const LOADING = "LOADING";
 
-const setPost = createAction(SET_POST, (post_list, paging) => ({
+const setPost = createAction(SET_POST, (post_list, page) => ({
   post_list,
-  paging,
+  page,
 }));
 
 const addPost = createAction(ADD_POST, (post) => ({ post }));
@@ -29,7 +29,7 @@ const deletePost = createAction(DELETE_POST, (postid) => ({
 
 const initialState = {
   list: [],
-  paging: { start: null, next: null, size: 3},
+  page: { start: null, next: null, size: 3},
   is_loading: false,
 };
 
@@ -61,6 +61,7 @@ const editPostFB = (postid, title, content, imageSrc, star, username) => {
        form
       )
       .then(function (response) {
+        history.push("/");
         console.log(response);
       })
       .catch(function (error) {
@@ -95,7 +96,7 @@ const deletePostFB = (postid) => {
     .delete("http://15.164.96.141/api/posts", postid)
     .then(function(response){
       window.alert("삭제 완료되었습니다.");
-      window.location.href="/";
+      history.push("/");
     })
     .catch(function (error) {
       console.log(error);

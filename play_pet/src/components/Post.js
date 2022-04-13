@@ -12,8 +12,11 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import { pink } from "@mui/material/colors";
+import { useDispatch } from "react-redux";
+import { actionCreators as postActions } from "../redux/modules/post";
 
 const Post = (props) => {
+  const dispatch = useDispatch();
   const imgs = [];
   const [star, setstar] = useState(0);
   const [heart_state, setheart] = useState(false);
@@ -28,15 +31,27 @@ const Post = (props) => {
     else setheart(true);
   };
 
+  const edit = () => {
+    dispatch(postActions.editPostFB());
+    history.push("/");
+  };
+
   return (
     <React.Fragment>
       <Grid margin="auto" bg={"#EFF6FF"}>
         <Grid margin="auto" padding="16px">
-          <Grid is_flex width="auto">
+          <Grid margin="auto" is_flex width="auto">
             <Text bold>상호명: {props.title}</Text>
             <Text bold>글쓴이: {props.nickname}</Text>
             <Text>작성시간: {props.createdAt}</Text>
-            {props.is_me && (
+            <Button
+              bg={"skyblue"}
+              width="50px"
+              _onClick={edit}
+            >
+              수정
+            </Button>
+            {/* {props.is_me && (
               <Button
                 width="auto"
                 padding="4px"
@@ -47,7 +62,7 @@ const Post = (props) => {
               >
                 수정
               </Button>
-            )}
+            )} */}
           </Grid>
         </Grid>
         <Grid margin="auto">
