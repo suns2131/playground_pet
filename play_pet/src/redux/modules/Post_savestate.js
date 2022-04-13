@@ -8,7 +8,7 @@ const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
 
 // action creators
-// const setPost = createAction(SET_POST, (post_list) => ({post_list}));
+ const setPost = createAction(SET_POST, (post_list) => ({post_list}));
 // const addPost = createAction(ADD_POST, (post) => ({post}));
 
 // 게시글 하나에는 어떤 정보가 있어야 하는 지 하나 만들어둡시다! :)
@@ -29,19 +29,18 @@ const initialState = {
 //middle wares..
 const getPostID = (postid) => {
     return async function (dispatch,getState,{history}){
-        console.log(postid)
-        //
-
-        //'http://15.164.96.141:8080/api/posts'
+        //'http://15.164.96.141/api/posts'
         //'http://localhost:3001/result'
-        axios.get('http://15.164.96.141:8080/api/posts',{
+        axios.get('http://15.164.96.141/api/posts',{
           params : {
-            id : postid
+            page:postid
           }
         })
         .then(function (response)
         {
+          console.log('getpost');
           console.log(response);
+          dispatch(setPost(response.data))
         })
         .catch(function (error){
           console.log(error)
@@ -56,6 +55,7 @@ const addpostTS = (post) => {
         postdata.append('title',post.title);
         postdata.append('star',post.star);
         postdata.append('content',post.content);
+        postdata.append('username',post.username);
         postdata.append('images',post.image_file1);
         postdata.append('images',post.image_file2);
         postdata.append('images',post.image_file3);
@@ -68,17 +68,15 @@ const addpostTS = (post) => {
             'content-type' : 'multipart/form-data',
           }
         }
-        // postdata.append('title',post.title);
-        // http://3.38.180.96/images
+        //http://15.164.96.141/api/posts
         //http://localhost:3001/posts
         axios.post(
-          'http://localhost:3001/posts',
+          'http://15.164.96.141/api/posts',
           postdata,
           config
         ).then(function (response){
            console.log(response)
            history.push("/list")
-          //  window.location.replace("/list")
         }).catch(function (error){
           console.log(error)
         })

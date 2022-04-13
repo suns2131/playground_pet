@@ -129,6 +129,7 @@ const Post_content = () => {
           title : title,
           star : star,
           content : wirte,
+          username : 'abc',
           image_file1 : image_file1,
           image_file2 : image_file2,
           image_file3 : image_file3,
@@ -224,8 +225,7 @@ const Post_content = () => {
             </Stack>
             <Stack spacing={2} direction="row">
                     <Button variant="contained" onClick={() => {
-                         dispatch(PostActions.getPostID(3))
-                        //history.push('/list')
+                        history.push('/list')
                     }}>뒤로가기</Button>
             </Stack>
         </div>
