@@ -2,19 +2,27 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
 
+const ADD_POST = "ADD_POST";
 const SET_POST = "SET_POST";
 const EDIT_POST = "EDIT_POST";
 const DELETE_POST = "DELETE_POST";
-// const LOADING = "LOADING";
+const LOADING = "LOADING";
 
 const setPost = createAction(SET_POST, (post_list, paging) => ({
   post_list,
   paging,
 }));
+
+const addPost = createAction(ADD_POST, (post) => ({ post }));
+
+
 const editPost = createAction(EDIT_POST, (postid, post) => ({
   postid,
   post,
 }));
+
+const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
+
 const deletePost = createAction(DELETE_POST, (postid) => ({
   postid,
 }));

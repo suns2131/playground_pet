@@ -1,21 +1,22 @@
-// 스토어 만들 때
-// combineReducers()를 사용해서 export한 reducer를 모아 root reducer를 만들고,
-// createStore()를 사용해서 root reducer와 미들웨어를 엮어 스토어를 만든다!
 
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import thunk from "redux-thunk";
-import { createBrowserHistory } from "history";
-import { connectRouter } from "connected-react-router";
-
-import Post from "./modules/post";
+import {createStore,combineReducers, applyMiddleware, compose} from 'redux'
+import {connectRouter} from 'connected-react-router';
+import {createBrowserHistory} from 'history'
+import thunk from 'redux-thunk'
+import Post from "./modules/Post_savestate"
+import Login from "./modules/Login_module"
 import Comment from "./modules/comment";
+import Like_module from './modules/Like_module';
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
+  Like : Like_module,
+  Login : Login,
   post: Post,
   comment: Comment,
   router: connectRouter(history),
+
 });
 
 const middlewares = [thunk.withExtraArgument({history:history})];

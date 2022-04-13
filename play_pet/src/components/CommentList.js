@@ -9,12 +9,16 @@ const CommentList = (props) => {
 
   const dispatch = useDispatch();
   const comment_list = useSelector(state => state.comment.list);
-
-  const {postid} = props;
+  console.log(comment_list)
+  const postid = props.postid;
+  console.log('postid :' + postid)
 
   React.useEffect(() => {
     // 코멘트 정보 없으면 불러오기
+    console.log(1)
     if(!comment_list[postid]){
+      console.log(2)
+      console.log('postid :' + postid)
       dispatch(commentActions.getCommentFB(postid))
     }
   },[]);
