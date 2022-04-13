@@ -13,9 +13,7 @@ import { history } from './redux/ConfigStore';
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-    <BrowserRouter>
     <App />
-    </BrowserRouter>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
