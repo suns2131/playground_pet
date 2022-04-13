@@ -24,7 +24,6 @@ const initialState = {
 // 미들 웨어
 const addCommentFB = (postid, username, content) => {
   return async function (dispatch, getState, { history }) {
-    const cur_state = getState();
     const comment_data = {
         postid : postid,
         username : username,
@@ -32,7 +31,7 @@ const addCommentFB = (postid, username, content) => {
     }
     //http://localhost:3001/comments
     //http://15.164.96.141/api/posts
-    axios.post("http://localhost:3001/comments",
+    axios.post("http://15.164.96.141/api/posts/comment",
        comment_data
       )
       .then(function (response) {
