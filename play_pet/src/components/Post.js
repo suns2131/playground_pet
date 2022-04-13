@@ -94,7 +94,7 @@ const Post = (props) => {
                       <FavoriteBorderIcon
                         sx={{ fontSize: 50, color: pink[400] }}
                       />
-                    </IconButton>
+                  </IconButton>
                 }
             </Stack>
             </div>
