@@ -17,9 +17,9 @@ const ImageCard = (props) => {
       <Card_style>
       <div className="img_container">
         <Slider {...settings}>
-          {itemarray.map((el) => {
+          {itemarray.map((el,idx) => {
             return (
-              <div className="img_div">
+              <div className="img_div" key={idx}>
                 <img src={el}/>
               </div>
             );

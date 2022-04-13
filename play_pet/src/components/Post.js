@@ -13,19 +13,15 @@ import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import { pink } from "@mui/material/colors";
 
-
 const Post = (props) => {
   const post_data = props.post_data;
-  console.log(post_data);
   let defaultstar = 0;
-  let imgs = [];
+  const imgs = [];
+  console.log(post_data?.imageSrc)
+  if(post_data?.imageSrc != undefined)
+    imgs = [...post_data?.imageSrc];
   let defaultheart = false;
-  if(post_data.length > 0)
-  {
-    imgs = [...post_data[0].imageSrc];
-    defaultstar = post_data[0].star;
-  }
-    
+  defaultstar = post_data?.star;
   const [star,setstar] = useState(defaultstar);
   const [heart_state,setheart] = useState(defaultheart);
 
@@ -35,27 +31,30 @@ const Post = (props) => {
     else 
         setheart(true);
   }
+
   return (
-    <React.Fragment>
-      <Grid bg={"#EFF6FF"}>
+  <React.Fragment>
+    <Grid bg={"#EFF6FF"}>
         <Grid padding="16px">
           <Grid is_flex width="auto">
-            <Text bold>{post_data[0].title}</Text>
-            <Text bold>글쓴이: {post_data[0].nickname}</Text>
-            <Text>작성시간: {post_data[0].createdAt}</Text>
+            <Text bold>{post_data?.title}</Text>
+            <Text bold>글쓴이: {post_data?.nickname}</Text>
+            <Text>작성시간: {post_data?.createdAt}</Text>
             {props.is_me && (
             <Button
               width="auto"
               padding="4px"
               margin="4px"
               _onClick={() => {
-                history.push(`/write/${post_data[0].postid}`);
+                history.push(`/write/${post_data?.postid}`);
               }}
             >
               수정
             </Button>
           )}
           </Grid>
+        </Grid>
+
         <Grid margin="30px 0px 0px 0px">
           <ImageCard imagelist = {imgs}/>
         </Grid>
@@ -77,27 +76,28 @@ const Post = (props) => {
               </div>
             </Text>
             <div className="favorite_icon">
-            <Text margin="0px" bold>
-              좋아요 {post_data.good}개
-            </Text>
-            <Stack direction="row" spacing={1}>
-                {heart_state === true ? 
-                    <IconButton aria-label="Favorite" onClick={heart_click} >
-                        <FavoriteIcon sx={{ fontSize: 50, color : pink[400] }}/>
-                    </IconButton>
-                    : 
-                    <IconButton aria-label="FavoriteBorder" onClick={heart_click}>
-                        <FavoriteBorderIcon sx={{ fontSize: 50, color : pink[400] }}/>
-                    </IconButton>
-                }
-            </Stack>
+              <Text margin="0px" bold>
+                좋아요 {post_data?.good}개
+              </Text>
+              <Stack direction="row" spacing={1}>
+                  {heart_state === true ? 
+                      <IconButton aria-label="Favorite" onClick={heart_click} >
+                          <FavoriteIcon sx={{ fontSize: 50, color : pink[400] }}/>
+                      </IconButton>
+                      : 
+                      <IconButton aria-label="FavoriteBorder" onClick={heart_click}>
+                          <FavoriteBorderIcon sx={{ fontSize: 50, color : pink[400] }}/>
+                      </IconButton>
+                  }
+              </Stack>
             </div>
           </Grid>
-
-        <Grid padding="16px">
-          <Text>{post_data.content}</Text>
         </Grid>
-      </React.Fragment>
+        <Grid padding="16px">
+          <Text>{post_data?.content}</Text>
+        </Grid>
+    </Grid>
+  </React.Fragment>
   );
 };
 
