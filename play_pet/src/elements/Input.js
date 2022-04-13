@@ -31,7 +31,7 @@ const Input = (props) => {
 
   return (
     <React.Fragment>
-      <Grid>
+      <Grid padding="16px" margin="0px 0px 0px 80px">
         {label && <Text margin="0px">{label}</Text>}
         {is_submit ? (
           <ElInput
@@ -59,6 +59,7 @@ Input.defaultProps = {
   placeholder: "텍스트를 입력해주세요.",
   type: "text",
   value: "",
+  margin: false,
   is_submit: false,
   onSubmit: () => {},
   _onChange: () => {},
@@ -69,6 +70,7 @@ const ElTextarea = styled.textarea`
   width: 100%;
   padding: 12px 4px;
   box-sizing: border-box;
+  
 `;
 
 const ElInput = styled.input`
