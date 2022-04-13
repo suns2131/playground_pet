@@ -30,28 +30,27 @@ const Post = (props) => {
 }
 
   return (
-    <React.Fragment>
-      <Grid bg={"#EFF6FF"}>
-        <Grid padding="16px">
-          <Grid is_flex width="auto">
-            <Text bold>상호명: {props.title}</Text>
-            <Text bold>글쓴이: {props.nickname}</Text>
-            <Text>작성시간: {props.createdAt}</Text>
-            {props.is_me && (
-            <Button
-              width="auto"
-              padding="4px"
-              margin="4px"
-              _onClick={() => {
-                history.push(`/write/${props.id}`);
-              }}
-            >
-              수정
-            </Button>
-          )}
+      <React.Fragment>
+        <Grid margin="auto" bg={"#EFF6FF"}>
+          <Grid margin="auto" padding="16px">
+            <Grid is_flex width="auto">
+              <Text bold>상호명: {props.title}</Text>
+              <Text bold>글쓴이: {props.nickname}</Text>
+              <Text>작성시간: {props.createdAt}</Text>
+              {props.is_me && (
+                <Button
+                  width="auto"
+                  padding="4px"
+                  margin="4px"
+                  _onClick={() => {
+                    history.push(`/write/${props.id}`);
+                  }}
+                >
+                  수정
+                </Button>
+              )}
+            </Grid>
           </Grid>
-        </Grid>
-
         <Grid margin="30px 0px 0px 0px">
           <ImageCard imagelist = {imgs}/>
         </Grid>
@@ -88,13 +87,12 @@ const Post = (props) => {
             </Stack>
             </div>
           </Grid>
-        </Grid>
 
-        <Grid padding="16px">
-          <Text>{props.content}</Text>
+          <Grid margin="auto" padding="16px">
+            <Text>{props.content}</Text>
+          </Grid>
         </Grid>
-      </Grid>
-    </React.Fragment>
+      </React.Fragment>
   );
 };
 
