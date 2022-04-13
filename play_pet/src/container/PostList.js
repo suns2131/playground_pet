@@ -9,15 +9,17 @@ import Grid from "../elements/Grid";
 
 const PostList = (props) => {
   const dispatch = useDispatch();
-  const post_list = useSelector((state) => state.post.list);
-  console.log(post_list); // 빈 배열
-  // const user_info = useSelector((state) => state.user.user);
-  // const is_loading = useSelector((state) => state.post.is_loading);
-  const paging = useSelector((state) => state.post.paging);
-  console.log(paging);
+   const post_list = useSelector((state) => state.post.list);
+   const user_info = useSelector((state) => state.user);
+   const is_loading = useSelector((state) => state.post.is_loading);
+   const paging = useSelector((state) => state.post.paging);
 
-  const { history } = props;
+   const { history } = props;
 
+   console.log(post_list)
+   console.log(user_info)
+   console.log(is_loading)
+   console.log(paging)
   React.useEffect(() => {
     if (post_list.length < 2) {
       dispatch(postActions.getPostFB());
@@ -29,7 +31,7 @@ const PostList = (props) => {
       <Grid margin="auto" bg={"#EFF6FF"} padding="20px 0px">
         <InfinityScroll
           callNext={() => {
-            dispatch(postActions.getPostFB(paging.next));
+            // dispatch(postActions.getPostFB(paging.next));
           }}
           is_next={paging.next ? true : false}
           // loading={is_loading}
