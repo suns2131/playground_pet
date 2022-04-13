@@ -7,10 +7,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import InfinityScroll from "../shared/InfinityScroll";
 import Grid from "../elements/Grid";
-import Permit from "../shared/Permit";
+import Headers from "../shared/Headers";
+// import Permit from "../shared/Permit";
 
 const PostList = (props) => {
+
   const dispatch = useDispatch();
+
   const post_list = useSelector((state) => state.post.list);
   const user_info = useSelector((state) => state.user);
   const is_loading = useSelector((state) => state.post.is_loading);
@@ -24,59 +27,60 @@ const PostList = (props) => {
   console.log(paging);
 
   React.useEffect(() => {
-    if (post_list.length < 2) {
-      dispatch(postActions.getPostFB());
-    }
+      dispatch(postActions.getPostFB(1));
   }, []);
 
   return (
     <React.Fragment>
-      <Grid margin="auto" bg={"#EFF6FF"} padding="20px 0px">
+      <Headers/>
+      {/* <Grid margin="auto" bg={"#EFF6FF"} padding="20px 0px"> */}
         <InfinityScroll
           callNext={() => {
             dispatch(postActions.getPostFB(paging.next));
           }}
-          is_next={paging.next ? true : false}
+          // is_next={paging.next ? true : false}
           loading={is_loading}
         >
           {post_list.map((p, idx) => {
             console.log(p);
-            if (user_info && p.user_info.user_id === user_info.uid) {
+            // if (user_info && p.user_info.user_id === user_info.uid) {
+            //   return (
+            //     <Grid
+            //       bg="#ffffff"
+            //       margin="15px 0px"
+            //       key={p.id}
+            //       _onClick={() => {
+            //         history.push(`/post/${p.id}`);
+            //       }}
+            //     >
+            //       <Post {...p} is_me />
+            //     </Grid>
+            //   );
+            // } else {
               return (
-                <Grid
+                <Grid 
+                  margin="auto"
                   bg="#ffffff"
-                  margin="15px 0px"
-                  key={p.id}
+                  key={p.postId}
                   _onClick={() => {
-                    history.push(`/post/${p.id}`);
-                  }}
-                >
-                  <Post {...p} is_me />
-                </Grid>
-              );
-            } else {
-              return (
-                <Grid
-                  bg="#ffffff"
-                  key={p.id}
-                  _onClick={() => {
-                    history.push(`/post/${p.id}`);
+                    history.push(`/post/${p.postId}`);
                   }}
                 >
                   <Post {...p} />
                 </Grid>
               );
             }
-          })}
+          // }
+          )}
         </InfinityScroll>
-      </Grid>
-      <Permit>
+      {/* </Grid> */}
+      {/* <Permit> */}
         <BtnDiv margin="0px 20px 0px 500px">
-          <Button variant="contained" component="span">
+          <Button variant="contained" component="span" onClick={() => {history.push("/post");}}>
             후기 작성하기
           </Button>
         </BtnDiv>
-      </Permit>
+      {/* </Permit> */}
     </React.Fragment>
   );
 };

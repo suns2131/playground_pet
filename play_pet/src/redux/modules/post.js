@@ -26,11 +26,10 @@ const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 const deletePost = createAction(DELETE_POST, (postid) => ({
   postid,
 }));
-// const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
   list: [],
-  paging: { start: null, next: null, size: 3 },
+  paging: { start: null, next: null, size: 3},
   is_loading: false,
 };
 
@@ -58,7 +57,7 @@ const editPostFB = (postid, title, content, imageSrc, star, username) => {
 
     axios
       .put(
-        "http://localhost:3001/result",
+        "http://15.164.96.141/api/posts",
        form
       )
       .then(function (response) {
@@ -71,15 +70,17 @@ const editPostFB = (postid, title, content, imageSrc, star, username) => {
 };
 
 
-const getPostFB = (start = null, size = 3, page = null) => {
+const getPostFB = (page) => {
   return async function (dispatch, getState, { history }) {
     axios
-      .get("http://localhost:3001/result", {
+      .get("http://15.164.96.141/api/posts", {
         params: {
           page: page,
         },
       })
       .then(function (response) {
+        let post_list = [...response.data].reverse();
+        dispatch(setPost(post_list, page))
         console.log(response);
       })
       .catch(function (error) {
@@ -91,10 +92,13 @@ const getPostFB = (start = null, size = 3, page = null) => {
 const deletePostFB = (postid) => {
   return async function (dispatch, getState, {history}) {
     axios
-    .delete("http://localhost:3001/result")
+    .delete("http://15.164.96.141/api/posts", postid)
     .then(function(response){
       window.alert("삭제 완료되었습니다.");
       window.location.href="/";
+    })
+    .catch(function (error) {
+      console.log(error);
     })
   }
 }
