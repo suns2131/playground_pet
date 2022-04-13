@@ -26,13 +26,15 @@ const initialState = {
     list: [],
 }
 
-
-
 //middle wares..
 const getPostID = (postid) => {
     return async function (dispatch,getState,{history}){
         console.log(postid)
-        axios.get('http://localhost:3001/result',{
+        //
+
+        //'http://15.164.96.141:8080/api/posts'
+        //'http://localhost:3001/result'
+        axios.get('http://15.164.96.141:8080/api/posts',{
           params : {
             id : postid
           }
@@ -48,17 +50,66 @@ const getPostID = (postid) => {
 }
 
 const addpostTS = (post) => {
-    return async function (dispatch,getState,{history}){
-        console.log(post)
+    return async function ({history}){
+         console.log(post)
+        const postdata = new FormData();
+        postdata.append('title',post.title);
+        postdata.append('star',post.star);
+        postdata.append('content',post.content);
+        postdata.append('images',post.image_file1);
+        postdata.append('images',post.image_file2);
+        postdata.append('images',post.image_file3);
+        postdata.append('images',post.image_file4);
+        postdata.append('images',post.image_file5);
+        postdata.append('images',post.image_file6);
+
+        const config = {
+          Headers : {
+            'content-type' : 'multipart/form-data',
+          }
+        }
+        // postdata.append('title',post.title);
+        // http://3.38.180.96/images
+        //http://localhost:3001/posts
         axios.post(
-          'http://localhost:3001/result',
-           post
+          'http://localhost:3001/posts',
+          postdata,
+          config
         ).then(function (response){
-          history.push("/Card")
+           console.log(response)
+           history.push("/list")
+          //  window.location.replace("/list")
         }).catch(function (error){
           console.log(error)
         })
     }
+}
+
+const updatePostTS = (post) =>{
+  return async function (dispatch,getState,{history}){
+    axios.put(
+      'http://localhost:3001/posts',
+      post
+    ).then(function (response){
+      console.log(response)
+      // history.push("/Card")
+    }).catch(function (error){
+      console.log(error)
+    })
+  }
+}
+
+const deletePostTS = (post) =>{
+  return async function (dispatch,getState,{history}){
+    axios.delete(
+      'http://localhost:3001/posts'
+    ).then(function (response){
+      console.log(response)
+      // history.push("/Card")
+    }).catch(function (error){
+      console.log(error)
+    })
+  }
 }
 
 // reducer
@@ -81,6 +132,8 @@ export default handleActions(
   const actionCreators = {
     addpostTS,
     getPostID,
+    updatePostTS,
+    deletePostTS,
   };
   
   export { actionCreators };

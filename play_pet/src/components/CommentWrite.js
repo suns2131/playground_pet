@@ -17,7 +17,7 @@ const CommentWrite = (props) => {
   };
 
   const write = () => {
-    dispatch(commentActions.addCommentFB(postid, content));
+    dispatch(commentActions.addCommentFB(postid, 'user1',content));
     console.log(content);
     setContent("");
   };
