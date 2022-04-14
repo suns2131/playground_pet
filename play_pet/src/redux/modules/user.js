@@ -49,7 +49,7 @@ const loginFB = (id, pwd) => {
         sessionStorage.setItem("user_id", id);
         // const accessToken = res.data.token;
         // setCookie("is_login", `${accessToken}`);
-        history.push("/");
+        history.push("/list");
       }).catch(err =>{
         console.log(err);
         throw new Error(err);
