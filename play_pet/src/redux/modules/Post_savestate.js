@@ -27,6 +27,27 @@ const initialState = {
 }
 
 //middle wares..
+const getDetailpost = (postid,username) => {
+  return async function (dispatch,getState,{history}){
+    axios.get('http://15.164.96.141/api/posts/detail',{
+          params : {
+            postid : postid,
+            username : username
+          }
+        })
+        .then(function (response)
+        {
+          console.log('getDetail_post');
+          console.log(response);
+          dispatch(setPost(response.data))
+        })
+        .catch(function (error){
+          console.log(error)
+        })
+  }
+}
+
+
 const getPostID = (postid) => {
     return async function (dispatch,getState,{history}){
         //'http://15.164.96.141/api/posts'
@@ -85,7 +106,7 @@ const addpostTS = (post) => {
 
 const updatePostTS = (post) =>{
   return async function (dispatch,getState,{history}){
-    const loc = 'http://15.164.96.141/api/posts/' + post.postId 
+    const loc = 'http://15.164.96.141/api/posts'
     console.log(post)
 
     const postdata = new FormData();
@@ -94,22 +115,10 @@ const updatePostTS = (post) =>{
     postdata.append('star',post.star);
     postdata.append('content',post.content);
     postdata.append('username','user1');
-    postdata.append('images',post.image_file1);
-    postdata.append('images',post.image_file2);
-    postdata.append('images',post.image_file3);
-    postdata.append('images',post.image_file4);
-    postdata.append('images',post.image_file5);
-    postdata.append('images',post.image_file6);
 
-    const config = {
-      Headers : {
-        'content-type' : 'multipart/form-data',
-      }
-    }
     axios.put(
       loc,
-      postdata,
-      config
+      post,
     ).then(function (response){
       console.log(response)
       // history.push("/Card")
@@ -156,6 +165,7 @@ export default handleActions(
     getPostID,
     updatePostTS,
     deletePostTS,
+    getDetailpost,
   };
   
   export { actionCreators };

@@ -62,7 +62,10 @@ const PostList = (props) => {
                   bg="#ffffff"
                   key={p.postId}
                   _onClick={() => {
-                    history.push(`/Detail/${p.postId}`);
+                    history.push({
+                      pathname: `/Detail/${p.postId}`,
+                      state:p
+                    });
                   }}
                 >
                   <Post {...p} />

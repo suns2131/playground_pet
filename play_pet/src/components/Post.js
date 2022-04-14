@@ -14,28 +14,43 @@ import Stack from "@mui/material/Stack";
 import { pink } from "@mui/material/colors";
 import { useDispatch } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as LikeActions } from "../redux/modules/Like_module";
 
 const Post = (props) => {
-  const post_data = props.post_data;
+  const post_data = props;
+  console.log(props);
+  
   const dispatch = useDispatch();
   let defaultstar = 0;
   let imgs = [];
-  console.log(post_data?.imageSrc)
+  let defaultheart = false;
+  console.log(imgs)
+  // console.log(post_data?.imageSrc)
   if(post_data?.imageSrc != undefined)
     imgs = [...post_data?.imageSrc];
-  let defaultheart = false;
+  if(post_data?.heart != undefined)
+      defaultheart = post_data?.heart;
+  console.log(defaultheart);
   defaultstar = post_data?.star;
-  const [star,setstar] = useState(defaultstar);
-  const [heart_state,setheart] = useState(defaultheart);
+  const [star,setstar] = useState(post_data.star);
+  const [heart_state,setheart] = useState(post_data.heart);
+  console.log(heart_state)
 
   const heart_click = () => {
-    if (heart_state) setheart(false);
-    else setheart(true);
+    if (heart_state) 
+    {
+      setheart(false);
+      dispatch(LikeActions.setLike_Delete(props.postId,'abc'))
+    }
+    else 
+    {
+      setheart(true);
+      dispatch(LikeActions.setLike_Create(props.postId,'abc'))
+    }
   };
 
   const edit = () => {
     dispatch(postActions.editPostFB());
-    history.push("/");
   };
 
   return (
@@ -78,6 +93,7 @@ const Post = (props) => {
               <Text margin="0px" bold>
                 좋아요 {props.good}개
               </Text>
+
               <Stack direction="row" spacing={1}>
                 {heart_state === true ? (
                   <IconButton aria-label="Favorite" onClick={heart_click}>
