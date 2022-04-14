@@ -13,14 +13,15 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route path={"/"} exact component={Login} />
-        <Route path={"/list"} exact component={PostList} />
-        <Route path={"/post"} exact component={Posting} />
-        <Route path={"/Signup"} exact component={Signup} />
-        <Route path={"/user/kakao/callback"} exact component={Login_Kakao} />
-        <Route path={"/Detail/:postid"} exact component={PostDetail} />
+        <Route path={'/'} exact component={Login} />
+        <Route path={'/list'} exact component={PostList}/>
+        <Route path={'/post'} exact component={Posting} />
+        <Route path={'/Signup'} exact component={Signup} />
+        <Route path={'/user/kakao/callback'} exact component = {Login_Kakao}/>
+        <Route path={'/Detail/:postid'} exact component = {PostDetail}/>
       </Switch>
     </div>
   );
 }
 export default App;
+

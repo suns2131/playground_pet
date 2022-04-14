@@ -1,7 +1,6 @@
 import React from "react";
 import Grid from "../elements/Grid";
 import Text from "../elements/Text";
-
 import {useDispatch, useSelector} from "react-redux";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 
@@ -29,7 +28,7 @@ const CommentList = (props) => {
 
   return (
     <React.Fragment>
-      <Grid margin="auto" padding="16px">
+      <Grid margin="0px 0px 0px 250px" padding="16px">
         {comment_list[postid].map(c => {
           return (<CommentItem key={c.id} {...c}/>);
         })}
@@ -45,7 +44,7 @@ const CommentItem = (props) => {
   return (
     <Grid is_flex>
       <Grid is_flex margin="0px 4px">
-        <Text bold>{nickname}</Text>
+        <Text bold>{username}</Text>
         <Text margin="0px">{content}</Text>
         <Text margin="0px">{createdAt}</Text>
       </Grid>

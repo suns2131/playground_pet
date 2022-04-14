@@ -1,8 +1,10 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
+import { setCookie, deleteCookie } from "../../shared/Cookie";
 
 import axios from "axios";
+
+import { useNavigate, Link } from "react-router-dom";
 
 //actions
 const LOG_OUT = "LOG_OUT";
@@ -28,131 +30,84 @@ const user_initial = {
 
 //middleware actions
 const loginFB = (id, pwd) => {
-  return function (dispatch, getState, { history }) {
-    // auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then((res) => {
-    //   auth
-    //     .signInWithEmailAndPassword(id, pwd)
-    //     .then((user) => {
-    //       dispatch(
-    //         setUser({
-    //           user_name: user.displayName,
-    //           id: id,
-    //           user_profile: "",
-    //           uid: user.user.uid,
-    //         })
-    //       );
-    //       history.push("/");
-    //     })
-    //     .catch((error) => {
-    //       var errorCode = error.code;
-    //       var errorMessage = error.message;
-    //     });
-    // });
+   return async function (dispatch, getState, { history }) {
+    await axios({
+      method: "POST",
+      url: "http://15.164.96.141/user/login",
+      data: {
+        username : id,
+        password: pwd,
+      },
+    })
+      .then(function (response) {
+        if(response.data.result === true){
+          // dispatch(
+          //   setUser({
+          //     nickname: response.data.nickname
+          //   })
+          // );
+          sessionStorage.setItem("nickname", response.data.nickname);
+          // console.log(response.data)
+          // sessionStorage.setItem("user_id", response.data.id);
+          history.push('/list');
+        } else {
+          alert(response.data.err_msg);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        throw new Error(err);
+      });
   };
 };
-// const loginAction = (user) => {
-//   return function (dispatch, getState, { history }) {
-//     console.log(history);
-//     dispatch(setUser(user));
-//     history.push("/");
-//   };
-// };
 
-const signupFB = (id, pwd, user_name) => {
+const signupFB = (id, password, nickname) => {
   return function (dispatch, getState, { history }) {
-    // auth
-    //   .createUserWithEmailAndPassword(id, pwd)
-    //   .then((user) => {
-    //     console.log(user);
-
-    //     auth.currentUser
-    //       .updateProfile({
-    //         displayName: user_name,
-    //       })
-    //       .then(() => {
-    //         dispatch(
-    //           setUser({
-    //             user_name: user_name,
-    //             id: id,
-    //             user_profile: "",
-    //             uid: user.user.uid,
-    //           })
-    //         );
-    //         history.push("/");
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-
-    //     // Signed in
-    //     // ...
-    //   })
-    //   .catch((error) => {
-    //     var errorCode = error.code;
-    //     var errorMessage = error.message;
-
-    //     console.log(errorCode, errorMessage);
-    //   });
+    axios({
+      method: "post",
+      url: "http://15.164.96.141/user/signup",
+      data: {
+        username: id,
+        password: password,
+        nickname: nickname,
+      },
+    })
+      .then((res) => {
+        if(res.data.result === true){
+          alert('계정이 생성 되었습니다!')
+          history.push("/");
+        }else {
+          alert(res.data.err_msg);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
   };
 };
-// axios
-//   .post(
-//     "/cat", // 미리 약속한 주소
-//     { user_name: user_name, id: id, password: pwd }
-//     // {headers: { Authorization: "내 토큰 보내주기" }} // 누가 요청했는 지 알려줍니다. (config에서 해요!)
-//   )
-//   .then((response) => {
-//     dispatch(setUser({ user_name: user_name, id: id, pwd: pwd }));
-//     console.log(response);
-//     history.push("/");
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
 
-const loginCheckFB = () => {
-  return function (dispatch, getState, {history}){
-    // auth.onAuthStateChanged((user) => {
-    //   if(user){
-    //     dispatch(
-    //       setUser({
-    //         user_name: user.displayName,
-    //         user_profile: "",
-    //         id: user.email,
-    //         uid: user.uid,
-    //       })
-    //     );
-    //   }else{
-    //     dispatch(logOut());
-    //   }
-    // })
-  }
-}
+const logoutFB = (id) => {
+  return function (dispatch, getState, { history }) {
+        // dispatch(logOut());
+        sessionStorage.removeItem('user_id');
+        history.push("/");
+  };
+};
 
-const logoutFB = () => {
-  return function (dispatch, getState, {history}) {
-    // auth.signOut().then(() => {
-    //   dispatch(logOut());
-    //   history.replace('/');
-    // })
-  }
-}
-  
-
-//reducer
+// reducer
 export default handleActions(
   {
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
-        setCookie("is_login", "success");
+        setCookie("is_login", "success", 3);
         draft.user = action.payload.user;
         draft.is_login = true;
       }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
         deleteCookie("is_login");
-        draft.user = null;
-        draft.is_login = false;
+        // draft.user = null;
+        // draft.is_login = false;
       }),
     [GET_USER]: (state, action) => produce(state, (draft) => {}),
   },
@@ -165,7 +120,7 @@ const actionCreators = {
   getUser,
   signupFB,
   loginFB,
-  loginCheckFB,
+  // loginCheckFB,
   logoutFB,
 };
 
