@@ -71,7 +71,7 @@ return (
               </Button>
             )}
       </Grid>
-      <Grid margin="30px 0px 0px 0px">
+      <Grid margin="30px 0px 0px 0px" width="100%">
         <ImageCard imagelist={imgs} />
       </Grid>
 
