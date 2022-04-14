@@ -21,12 +21,12 @@ const setLike_Create = (postid,username) => {
             postid : postid,
             username : username
         }
-
-        axios.post("http://localhost:3001/posts",
+        axios.post("http://15.164.96.141/api/posts/like",
         like_info
         )
         .then(function (response){
-            
+            console.log('like_return')
+            console.log(response)
         })
         .catch(function (error){
 
@@ -38,6 +38,7 @@ const setLike_Create = (postid,username) => {
 //좋아요 삭제
 const setLike_Delete = (postid,username) => {
     return async function ({history}){
+        console.log('like')
         const like_info = {
             postid : postid,
             username : username

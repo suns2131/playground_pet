@@ -35,8 +35,7 @@ const addCommentFB = (postid, username, content) => {
       .post("http://15.164.96.141/api/posts/comment", comment_data)
       .then(function (response) {
         console.log(response.data);
-
-        dispatch(addComment(postid, response.data));
+        getCommentFB(postid);
       })
       .catch(function (error) {
         console.log(error);
@@ -79,6 +78,8 @@ export default handleActions(
 
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
+        console.log(action.payload.comment)
+
         draft.list[action.payload.postid].unshift(action.payload.comment);
       }),
   },

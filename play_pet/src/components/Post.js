@@ -12,11 +12,14 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import { pink } from "@mui/material/colors";
+import { useDispatch } from "react-redux";
+import {actionCreators as LikeActions} from '../redux/modules/Like_module'
 
 const Post = (props) => {
   const post_data = props.post_data;
+  const dispatch = useDispatch();
   let defaultstar = 0;
-  const imgs = [];
+  let imgs = [];
   console.log(post_data?.imageSrc)
   if(post_data?.imageSrc != undefined)
     imgs = [...post_data?.imageSrc];
@@ -27,15 +30,30 @@ const Post = (props) => {
 
   const heart_click = () => {
     if(heart_state)
-        setheart(false);
+    {
+      setheart(false);
+      console.log(post_data.postId)
+      if(post_data?.postId != undefined)
+      {
+        console.log(1)
+        dispatch(LikeActions.setLike_Delete(post_data.postId,'abc'))
+      }
+        
+    }
+        
     else 
-        setheart(true);
+    {
+      setheart(true);
+      if(post_data?.postId != undefined)
+        dispatch(LikeActions.setLike_Create(post_data.postid,'abc'))
+    }
+        
   }
 
 return (
 <React.Fragment>
-  <Grid bg={"#EFF6FF"}>
-    <Grid padding="16px">
+  <Grid margin="auto" bg={"#EFF6FF"}>
+    <Grid margin="auto"  padding="16px">
       <Grid is_flex width="auto">
             <Text bold>{post_data?.title}</Text>
             <Text bold>글쓴이: {post_data?.nickname}</Text>
@@ -57,10 +75,6 @@ return (
         <ImageCard imagelist={imgs} />
       </Grid>
 
-      <Grid margin="30px 0px 0px 0px">
-        <ImageCard imagelist = {imgs}/>
-      </Grid>
-
       <Grid padding="16px">
         <Grid is_flex width="auto">
           <Text margin="0px" bold>
@@ -79,7 +93,7 @@ return (
           </Text>
           <div className="favorite_icon">
             <Text margin="0px" bold>
-              좋아요 {post_data.good}개
+              좋아요 {post_data?.good}개
             </Text>
             <Stack direction="row" spacing={1}>
               {heart_state === true ? (
@@ -101,7 +115,7 @@ return (
         </Grid>
         <Grid>
           <Grid padding="16px">
-            <Text>{post_data.content}</Text>
+            <Text>{post_data?.content}</Text>
           </Grid>
         </Grid>
       </Grid>
@@ -109,7 +123,7 @@ return (
   </Grid>
 </React.Fragment>
 );
-            }
+}
 
 Post.defaultProps = {
   title: "레인바우",

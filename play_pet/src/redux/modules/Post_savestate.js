@@ -84,10 +84,29 @@ const addpostTS = (post) => {
 }
 
 const updatePostTS = (post) =>{
+  
+
   return async function (dispatch,getState,{history}){
+    const postdata = new FormData();
+        postdata.append('title',post.title);
+        postdata.append('star',post.star);
+        postdata.append('content',post.content);
+        postdata.append('username','user1');
+        postdata.append('images',post.image_file1);
+        postdata.append('images',post.image_file2);
+        postdata.append('images',post.image_file3);
+        postdata.append('images',post.image_file4);
+        postdata.append('images',post.image_file5);
+        postdata.append('images',post.image_file6);
+    const config = {
+      Headers : {
+        'content-type' : 'multipart/form-data',
+      }
+    }
     axios.put(
-      'http://localhost:3001/posts',
-      post
+      'http://15.164.96.141/api/posts',
+      postdata,
+      config
     ).then(function (response){
       console.log(response)
       // history.push("/Card")
@@ -99,8 +118,14 @@ const updatePostTS = (post) =>{
 
 const deletePostTS = (post) =>{
   return async function (dispatch,getState,{history}){
+    console.log(post);
+    const delete_info = {
+      post_id : post
+    }
+    console.log(delete_info);
     axios.delete(
-      'http://localhost:3001/posts'
+      'http://15.164.96.141/api/posts',
+      delete_info
     ).then(function (response){
       console.log(response)
       // history.push("/Card")

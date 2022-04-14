@@ -26,6 +26,8 @@ const PostDetail = (props) => {
                 <Post post_data = {post_data[0]}/>
                 <CommentWrite postid = {data}/>
                 <CommentList postid = {data}/>
+                <button onClick={()=> {dispatch(PostActions.deletePostTS(data));}}>삭제</button>
+                <button onClick={()=> {dispatch(PostActions.updatePostTS(data));}}>수정</button>
             </Container>
             
         </React.Fragment>
