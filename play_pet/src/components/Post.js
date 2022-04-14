@@ -51,18 +51,6 @@ const Post = (props) => {
             >
               수정
             </Button>
-            {/* {props.is_me && (
-              <Button
-                width="auto"
-                padding="4px"
-                margin="4px"
-                _onClick={() => {
-                  history.push(`/write/${props.id}`);
-                }}
-              >
-                수정
-              </Button>
-            )} */}
           </Grid>
         </Grid>
         <Grid margin="auto">

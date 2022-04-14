@@ -15,7 +15,6 @@ const setPost = createAction(SET_POST, (post_list, page) => ({
 
 const addPost = createAction(ADD_POST, (post) => ({ post }));
 
-
 const editPost = createAction(EDIT_POST, (postid, post) => ({
   postid,
   post,
@@ -29,7 +28,7 @@ const deletePost = createAction(DELETE_POST, (postid) => ({
 
 const initialState = {
   list: [],
-  page: { start: null, next: null, size: 3},
+  page: { start: null, next: null, size: 3 },
   is_loading: false,
 };
 
@@ -48,18 +47,15 @@ const editPostFB = (postid, title, content, imageSrc, star, username) => {
   return async function (dispatch, getState, { history }) {
     const form = new FormData();
 
-    form.append('postid', postid)
-    form.append('title', title)
-    form.append('content', content)
-    form.append('imageSrc', imageSrc)
-    form.append('star', star)
-    form.append('username', username)
+    form.append("postid", postid);
+    form.append("title", title);
+    form.append("content", content);
+    form.append("imageSrc", imageSrc);
+    form.append("star", star);
+    form.append("username", username);
 
     axios
-      .put(
-        "http://15.164.96.141/api/posts",
-       form
-      )
+      .put("http://15.164.96.141/api/posts", form)
       .then(function (response) {
         history.push("/");
         console.log(response);
@@ -69,7 +65,6 @@ const editPostFB = (postid, title, content, imageSrc, star, username) => {
       });
   };
 };
-
 
 const getPostFB = (page) => {
   return async function (dispatch, getState, { history }) {
@@ -81,7 +76,7 @@ const getPostFB = (page) => {
       })
       .then(function (response) {
         let post_list = [...response.data].reverse();
-        dispatch(setPost(post_list, page))
+        dispatch(setPost(post_list, page));
         console.log(response);
       })
       .catch(function (error) {
@@ -91,18 +86,18 @@ const getPostFB = (page) => {
 };
 
 const deletePostFB = (postid) => {
-  return async function (dispatch, getState, {history}) {
+  return async function (dispatch, getState, { history }) {
     axios
-    .delete("http://15.164.96.141/api/posts", postid)
-    .then(function(response){
-      window.alert("삭제 완료되었습니다.");
-      history.push("/");
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-  }
-}
+      .delete("http://15.164.96.141/api/posts", postid)
+      .then(function (response) {
+        window.alert("삭제 완료되었습니다.");
+        history.push("/");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+};
 
 export default handleActions(
   {
@@ -133,9 +128,11 @@ export default handleActions(
         draft.list[idx] = { ...draft.list[idx], ...action.payload.post };
       }),
 
-    [DELETE_POST]: (state, action) => produce(state, (draft) => {
-
-    }),
+    [DELETE_POST]: (state, action) => produce(state, (draft) => {}),
+    [LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.is_loading;
+      }),
   },
   initialState
 );
