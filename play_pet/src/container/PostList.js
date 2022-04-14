@@ -15,22 +15,22 @@ const PostList = (props) => {
 
   const post_list = useSelector((state) => state.post.list);
   // const [page, setPage] = React.useState(1);
-  const page = 1;
+  // const page = 1;
 
   const { history } = props;
 
   React.useEffect(() => {
-    dispatch(postActions.getPostFB(1));
+    dispatch(postActions.getPostFB(1, "abc"));
   }, []);
 
   // const nextPage = () => {
   //   setPage(page + 1)
-  //   dispatch(postActions.getPostFB(page))
+  //   dispatch(postActions.getPostFB(page, "abc"))
   // };
 
   // const prevPage = () => {
   //   setPage(page - 1)
-  //   dispatch(postActions.getPostFB(page))
+  //   dispatch(postActions.getPostFB(page, "abc"))
   // };
 
   return (
@@ -65,12 +65,12 @@ const PostList = (props) => {
       {/* <Button
         is_float1
         text=">"
-        _onClick={() => {nextPage}}
+        _onClick={nextPage}
       ></Button>
       <Button
         is_float2
         text="<"
-        _onClick={() => {prevPage}}
+        _onClick={prevPage}
       ></Button> */}
     </React.Fragment>
   );

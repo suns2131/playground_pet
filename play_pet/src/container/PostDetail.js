@@ -5,6 +5,7 @@ import CommentWrite from "../components/CommentWrite";
 import Headers from "../shared/Headers";
 import {actionCreators as PostActions} from '../redux/modules/Post_savestate'
 import Container from "@mui/material/Container";
+import { useDispatch, useSelector } from "react-redux";
 
 const PostDetail = (props) => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const PostDetail = (props) => {
     <React.Fragment>
       <Headers />
       <Container>
-        <Post postid={post_data[0} />
+        <Post postid={post_data[0]} />
         <CommentWrite postid={data} />
         <CommentList postid={data} />
         <button onClick={()=> {dispatch(PostActions.deletePostTS(data));}}>삭제</button>
