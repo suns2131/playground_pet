@@ -1,3 +1,4 @@
+
 import Posting from './container/Posting';
 import { Route, Switch } from 'react-router-dom';
 import Name from './container/Name';
@@ -8,6 +9,10 @@ import Signup from './container/Signup';
 import List_post from './container/List_post';
 import Login_Kakao from './componets/Login_kakao';
 import PostDetail from './container/PostDetail';
+import Post from "./components/Post";
+
+
+
 
 function App() {
   return (

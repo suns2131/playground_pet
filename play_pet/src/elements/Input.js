@@ -31,7 +31,7 @@ const Input = (props) => {
 
   return (
     <React.Fragment>
-      <Grid padding="16px" margin="0px 0px 0px 80px">
+      <Grid padding="16px" margin="auto">
         {label && <Text margin="0px">{label}</Text>}
         {is_submit ? (
           <ElInput

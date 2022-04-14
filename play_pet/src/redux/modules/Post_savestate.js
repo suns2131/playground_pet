@@ -27,6 +27,27 @@ const initialState = {
 }
 
 //middle wares..
+const getDetailpost = (postid,username) => {
+  return async function (dispatch,getState,{history}){
+    axios.get('http://15.164.96.141/api/posts/detail',{
+          params : {
+            postid : postid,
+            username : username
+          }
+        })
+        .then(function (response)
+        {
+          console.log('getDetail_post');
+          console.log(response);
+          dispatch(setPost(response.data))
+        })
+        .catch(function (error){
+          console.log(error)
+        })
+  }
+}
+
+
 const getPostID = (postid) => {
     return async function (dispatch,getState,{history}){
         //'http://15.164.96.141/api/posts'
@@ -85,9 +106,19 @@ const addpostTS = (post) => {
 
 const updatePostTS = (post) =>{
   return async function (dispatch,getState,{history}){
+    const loc = 'http://15.164.96.141/api/posts'
+    console.log(post)
+
+    const postdata = new FormData();
+    postdata.append('postid',post.postId);
+    postdata.append('title',post.title);
+    postdata.append('star',post.star);
+    postdata.append('content',post.content);
+    postdata.append('username','user1');
+
     axios.put(
-      'http://localhost:3001/posts',
-      post
+      loc,
+      post,
     ).then(function (response){
       console.log(response)
       // history.push("/Card")
@@ -99,8 +130,10 @@ const updatePostTS = (post) =>{
 
 const deletePostTS = (post) =>{
   return async function (dispatch,getState,{history}){
+    console.log(post);
+    const loc = 'http://15.164.96.141/api/posts/' + post
     axios.delete(
-      'http://localhost:3001/posts'
+      loc
     ).then(function (response){
       console.log(response)
       // history.push("/Card")
@@ -132,6 +165,7 @@ export default handleActions(
     getPostID,
     updatePostTS,
     deletePostTS,
+    getDetailpost,
   };
   
   export { actionCreators };
