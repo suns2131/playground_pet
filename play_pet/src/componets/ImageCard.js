@@ -33,6 +33,7 @@ const ImageCard = (props) => {
 const Card_style = styled.div`
   .img_container{
     width: 100%;
+    margin: auto;
   }
   .img_div{
     background-color: red;

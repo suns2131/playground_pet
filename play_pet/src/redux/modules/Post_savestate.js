@@ -84,27 +84,30 @@ const addpostTS = (post) => {
 }
 
 const updatePostTS = (post) =>{
-  
-
   return async function (dispatch,getState,{history}){
+    const loc = 'http://15.164.96.141/api/posts/' + post.postId 
+    console.log(post)
+
     const postdata = new FormData();
-        postdata.append('title',post.title);
-        postdata.append('star',post.star);
-        postdata.append('content',post.content);
-        postdata.append('username','user1');
-        postdata.append('images',post.image_file1);
-        postdata.append('images',post.image_file2);
-        postdata.append('images',post.image_file3);
-        postdata.append('images',post.image_file4);
-        postdata.append('images',post.image_file5);
-        postdata.append('images',post.image_file6);
+    postdata.append('postid',post.postId);
+    postdata.append('title',post.title);
+    postdata.append('star',post.star);
+    postdata.append('content',post.content);
+    postdata.append('username','user1');
+    postdata.append('images',post.image_file1);
+    postdata.append('images',post.image_file2);
+    postdata.append('images',post.image_file3);
+    postdata.append('images',post.image_file4);
+    postdata.append('images',post.image_file5);
+    postdata.append('images',post.image_file6);
+
     const config = {
       Headers : {
         'content-type' : 'multipart/form-data',
       }
     }
     axios.put(
-      'http://15.164.96.141/api/posts',
+      loc,
       postdata,
       config
     ).then(function (response){
@@ -119,13 +122,9 @@ const updatePostTS = (post) =>{
 const deletePostTS = (post) =>{
   return async function (dispatch,getState,{history}){
     console.log(post);
-    const delete_info = {
-      post_id : post
-    }
-    console.log(delete_info);
+    const loc = 'http://15.164.96.141/api/posts/' + post
     axios.delete(
-      'http://15.164.96.141/api/posts',
-      delete_info
+      loc
     ).then(function (response){
       console.log(response)
       // history.push("/Card")
