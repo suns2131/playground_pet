@@ -25,8 +25,8 @@ const Headers = (props) => {
        <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" color="secondary">
           <Toolbar >
-            <Typography variant="h6" component="div"   onClick={() => {
-              history.push("/");
+            <Typography variant="h6" component="div" onClick={() => {
+              history.push("/list");
             }} sx={{ flexGrow: 1 }}>
               강아지 운동장
             </Typography>
@@ -49,7 +49,7 @@ const Headers = (props) => {
         <AppBar position="static" color="secondary">
           <Toolbar >
             <Typography variant="h6" component="div"   onClick={() => {
-              history.push("/");
+              history.push("/list");
             }} sx={{ flexGrow: 1 }}>
               강아지 운동장
             </Typography>
