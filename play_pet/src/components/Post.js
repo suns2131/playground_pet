@@ -13,7 +13,7 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import { pink } from "@mui/material/colors";
 import { useDispatch } from "react-redux";
-import {actionCreators as LikeActions} from '../redux/modules/Like_module'
+import { actionCreators as postActions } from "../redux/modules/post";
 
 const Post = (props) => {
   const post_data = props.post_data;
@@ -29,101 +29,78 @@ const Post = (props) => {
   const [heart_state,setheart] = useState(defaultheart);
 
   const heart_click = () => {
-    if(heart_state)
-    {
-      setheart(false);
-      console.log(post_data.postId)
-      if(post_data?.postId != undefined)
-      {
-        console.log(1)
-        dispatch(LikeActions.setLike_Delete(post_data.postId,'abc'))
-      }
-        
-    }
-        
-    else 
-    {
-      setheart(true);
-      if(post_data?.postId != undefined)
-        dispatch(LikeActions.setLike_Create(post_data.postid,'abc'))
-    }
-        
-  }
+    if (heart_state) setheart(false);
+    else setheart(true);
+  };
 
-return (
-<React.Fragment>
-  <Grid margin="auto" bg={"#EFF6FF"}>
-    <Grid margin="auto"  padding="16px">
-      <Grid is_flex width="auto">
-            <Text bold>{post_data?.title}</Text>
-            <Text bold>글쓴이: {post_data?.nickname}</Text>
-            <Text>작성시간: {post_data?.createdAt}</Text>
-            {props.is_me && (
-              <Button
-                width="auto"
-                padding="4px"
-                margin="4px"
-                _onClick={() => {
-                  history.push(`/write/${post_data[0].postid}`);
-                }}
-              >
-                수정
-              </Button>
-            )}
-      </Grid>
-      <Grid margin="30px 0px 0px 0px" width="100%">
-        <ImageCard imagelist={imgs} />
-      </Grid>
+  const edit = () => {
+    dispatch(postActions.editPostFB());
+    history.push("/");
+  };
 
-      <Grid padding="16px">
-        <Grid is_flex width="auto">
-          <Text margin="0px" bold>
-            <div>
-              <Typography component="legend">별점</Typography>
-              <Rating
-                name="simple-controlled"
-                readOnly
-                value={star}
-                size="large"
-                onChange={(event, newValue) => {
-                setstar(newValue);
-                }}
-              />
-            </div>
-          </Text>
-          <div className="favorite_icon">
-            <Text margin="0px" bold>
-              좋아요 {post_data?.good}개
-            </Text>
-            <Stack direction="row" spacing={1}>
-              {heart_state === true ? (
-                <IconButton aria-label="Favorite" onClick={heart_click}>
-                  <FavoriteIcon sx={{ fontSize: 50, color: pink[400] }} />
-                </IconButton>
-                ) : (
-                <IconButton
-                  aria-label="FavoriteBorder"
-                  onClick={heart_click}
-                  >
-                  <FavoriteBorderIcon
-                    sx={{ fontSize: 50, color: pink[400] }}
-                  />
-                </IconButton>)
-              }
-            </Stack>
-          </div>
-        </Grid>
-        <Grid>
-          <Grid padding="16px">
-            <Text>{post_data?.content}</Text>
+  return (
+    <React.Fragment>
+      <Grid margin="auto" bg={"#EFF6FF"}>
+        <Grid margin="auto" padding="16px">
+          <Grid margin="auto" is_flex width="auto">
+            <Text bold>상호명: {props.title}</Text>
+            <Text bold>글쓴이: {props.nickname}</Text>
+            <Text>작성시간: {props.createdAt}</Text>
+            <Button
+              bg={"skyblue"}
+              width="50px"
+              _onClick={edit}
+            >
+              수정
+            </Button>
           </Grid>
         </Grid>
+        <Grid margin="auto">
+          <ImageCard imagelist={imgs} />
+        </Grid>
+
+        <Grid margin="auto" padding="16px">
+          <Grid is_flex width="auto">
+            <Text margin="0px" bold>
+              <div>
+                <Typography component="legend">별점</Typography>
+                <Rating
+                  name="simple-controlled"
+                  value={star}
+                  size="large"
+                  onChange={(event, newValue) => {
+                    setstar(newValue);
+                  }}
+                />
+              </div>
+            </Text>
+            <div className="favorite_icon">
+              <Text margin="0px" bold>
+                좋아요 {props.good}개
+              </Text>
+              <Stack direction="row" spacing={1}>
+                {heart_state === true ? (
+                  <IconButton aria-label="Favorite" onClick={heart_click}>
+                    <FavoriteIcon sx={{ fontSize: 50, color: pink[400] }} />
+                  </IconButton>
+                ) : (
+                  <IconButton aria-label="FavoriteBorder" onClick={heart_click}>
+                    <FavoriteBorderIcon
+                      sx={{ fontSize: 50, color: pink[400] }}
+                    />
+                  </IconButton>
+                )}
+              </Stack>
+            </div>
+          </Grid>
+        </Grid>
+        <Grid margin="auto" padding="16px">
+          <Text>{props.content}</Text>
+        </Grid>
       </Grid>
-    </Grid>
-  </Grid>
-</React.Fragment>
-);
-}
+    </React.Fragment>
+  );
+};
 
 Post.defaultProps = {
   title: "레인바우",

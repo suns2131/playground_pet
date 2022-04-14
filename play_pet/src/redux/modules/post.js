@@ -8,9 +8,9 @@ const EDIT_POST = "EDIT_POST";
 const DELETE_POST = "DELETE_POST";
 const LOADING = "LOADING";
 
-const setPost = createAction(SET_POST, (post_list, paging) => ({
+const setPost = createAction(SET_POST, (post_list, page) => ({
   post_list,
-  paging,
+  page,
 }));
 
 const addPost = createAction(ADD_POST, (post) => ({ post }));
@@ -25,11 +25,10 @@ const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 const deletePost = createAction(DELETE_POST, (postid) => ({
   postid,
 }));
-// const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
   list: [],
-  paging: { start: null, next: null, size: 3 },
+  page: { start: null, next: null, size: 3},
   is_loading: false,
 };
 
@@ -57,10 +56,11 @@ const editPostFB = (postid, title, content, imageSrc, star, username) => {
 
     axios
       .put(
-        "http://localhost:3001/result",
+        "http://15.164.96.141/api/posts",
        form
       )
       .then(function (response) {
+        history.push("/");
         console.log(response);
       })
       .catch(function (error) {
@@ -70,7 +70,7 @@ const editPostFB = (postid, title, content, imageSrc, star, username) => {
 };
 
 
-const getPostFB = (start = null, size = 3, page = null) => {
+const getPostFB = (page) => {
   return async function (dispatch, getState, { history }) {
     axios
       .get("http://15.164.96.141/api/posts", {
@@ -79,6 +79,8 @@ const getPostFB = (start = null, size = 3, page = null) => {
         },
       })
       .then(function (response) {
+        let post_list = [...response.data].reverse();
+        dispatch(setPost(post_list, page))
         console.log(response);
       })
       .catch(function (error) {
@@ -90,10 +92,13 @@ const getPostFB = (start = null, size = 3, page = null) => {
 const deletePostFB = (postid) => {
   return async function (dispatch, getState, {history}) {
     axios
-    .delete("http://localhost:3001/result")
+    .delete("http://15.164.96.141/api/posts", postid)
     .then(function(response){
       window.alert("삭제 완료되었습니다.");
-      window.location.href="/";
+      history.push("/");
+    })
+    .catch(function (error) {
+      console.log(error);
     })
   }
 }
@@ -117,7 +122,7 @@ export default handleActions(
           draft.paging = action.payload.paging;
         }
 
-        // draft.is_loading = false;
+        draft.is_loading = false;
       }),
 
     [EDIT_POST]: (state, action) =>
