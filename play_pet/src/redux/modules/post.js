@@ -70,12 +70,13 @@ const editPostFB = (postid, title, content, imageSrc, star, username) => {
 };
 
 
-const getPostFB = (page) => {
+const getPostFB = (page, username) => {
   return async function (dispatch, getState, { history }) {
     axios
       .get("http://15.164.96.141/api/posts", {
         params: {
           page: page,
+          username: username,
         },
       })
       .then(function (response) {

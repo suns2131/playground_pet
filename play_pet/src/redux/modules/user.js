@@ -36,17 +36,18 @@ const loginFB = (id, pwd) => {
       method: "POST",
         url: "http://15.164.96.141/user/login",
         data: {
-          id: id,
-          password: pwd,
+          username : id,
+          password : pwd,
         },
       }).then((res) => {
+        console.log(res);
         dispatch(
           setUser({
             email: res.data.email,
             nickname: res.data.nickname,
           })
         );
-        sessionStorage.setItem("user_id", id);
+        sessionStorage.setItem("user_id", res.data.nickname);
         // const accessToken = res.data.token;
         // setCookie("is_login", `${accessToken}`);
         history.push("/list");

@@ -66,6 +66,7 @@ const Login = (props) => {
                 }}
               />
               <TextField
+                type="password"
                 margin="normal"
                 required
                 fullWidth

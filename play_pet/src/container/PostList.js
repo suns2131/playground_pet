@@ -20,7 +20,7 @@ const PostList = (props) => {
   const { history } = props;
 
   React.useEffect(() => {
-    dispatch(postActions.getPostFB(1));
+    dispatch(postActions.getPostFB(1, "abc"));
   }, []);
 
   // const nextPage = () => {

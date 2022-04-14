@@ -88,6 +88,7 @@ const Signup = () => {
   
                   <Grid item xs={12}>
                     <TextField
+                    type="password"
                       required
                       fullWidth
                       label="비밀번호"
@@ -100,6 +101,7 @@ const Signup = () => {
   
                   <Grid item xs={12}>
                     <TextField
+                    type="password"
                       required
                       fullWidth
                       label="비밀번호 확인"

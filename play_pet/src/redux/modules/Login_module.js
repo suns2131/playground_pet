@@ -42,7 +42,7 @@ const GetLogin_kakao = (code) => {
           });
         } else {
           sessionStorage.setItem("user_id", response.data.nickname);
-          history.push('/');
+          history.push('/list');
         }
       }).catch(function (error) {
         console.log(code);
