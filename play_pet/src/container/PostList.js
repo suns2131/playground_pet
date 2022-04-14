@@ -1,6 +1,7 @@
 //PostList.js
 import React from "react";
 import Button from "@mui/material/Button";
+// import Button from "../elements/Button";
 import styled from "styled-components";
 import Post from "../components/Post";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,77 +11,67 @@ import Grid from "../elements/Grid";
 import Headers from "../shared/Headers";
 
 const PostList = (props) => {
-
   const dispatch = useDispatch();
 
   const post_list = useSelector((state) => state.post.list);
-  const user_info = useSelector((state) => state.user);
-  const is_loading = useSelector((state) => state.post.is_loading);
-  const paging = useSelector((state) => state.post.paging);
+  // const [page, setPage] = React.useState(1);
+  const page = 1;
 
   const { history } = props;
 
-  console.log(post_list);
-  console.log(user_info);
-  console.log(is_loading);
-  console.log(paging);
-
   React.useEffect(() => {
-      dispatch(postActions.getPostFB(1));
+    dispatch(postActions.getPostFB(1));
   }, []);
+
+  // const nextPage = () => {
+  //   setPage(page + 1)
+  //   dispatch(postActions.getPostFB(page))
+  // };
+
+  // const prevPage = () => {
+  //   setPage(page - 1)
+  //   dispatch(postActions.getPostFB(page))
+  // };
 
   return (
     <React.Fragment>
-      <Headers/>
-      {/* <Grid margin="auto" bg={"#EFF6FF"} padding="20px 0px"> */}
-        <InfinityScroll
-          callNext={() => {
-            dispatch(postActions.getPostFB(paging.next));
+      <Headers />
+      {post_list.map((p, idx) => {
+        console.log(p);
+        return (
+          <Grid
+            margin="auto"
+            bg="#ffffff"
+            key={p.postId}
+            _onClick={() => {
+              history.push(`/Detail/${p.postId}`);
+            }}
+          >
+            <Post {...p} />
+          </Grid>
+        );
+      })}
+      <BtnDiv margin="0px 20px 0px 500px">
+        <Button
+          variant="contained"
+          component="span"
+          onClick={() => {
+            history.push("/post");
           }}
-          // is_next={paging.next ? true : false}
-          loading={is_loading}
         >
-          {post_list.map((p, idx) => {
-            console.log(p);
-            // if (user_info && p.user_info.user_id === user_info.uid) {
-            //   return (
-            //     <Grid
-            //       bg="#ffffff"
-            //       margin="15px 0px"
-            //       key={p.id}
-            //       _onClick={() => {
-            //         history.push(`/post/${p.id}`);
-            //       }}
-            //     >
-            //       <Post {...p} is_me />
-            //     </Grid>
-            //   );
-            // } else {
-              return (
-                <Grid 
-                  margin="auto"
-                  bg="#ffffff"
-                  key={p.postId}
-                  _onClick={() => {
-                    history.push({
-                      pathname: `/Detail/${p.postId}`,
-                      state:p
-                    });
-                  }}
-                >
-                  <Post {...p} />
-                </Grid>
-              );
-            }
-          // }
-          )}
-        </InfinityScroll>
-      {/* </Grid> */}
-        <BtnDiv margin="0px 20px 0px 500px">
-          <Button variant="contained" component="span" onClick={() => {history.push("/post");}}>
-            후기 작성하기
-          </Button>
-        </BtnDiv>
+          후기 작성하기
+        </Button>
+      </BtnDiv>
+      {/* <Button
+        is_float1
+        text=">"
+        _onClick={() => {nextPage}}
+      ></Button>
+      <Button
+        is_float2
+        text="<"
+        _onClick={() => {prevPage}}
+      ></Button> */}
     </React.Fragment>
   );
 };
