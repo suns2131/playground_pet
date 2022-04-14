@@ -26,10 +26,17 @@ const Signup = () => {
 
     const signup = () => {
         if (id === "" || pwd === "" || user_name === "") {
+        alert('공백을 입력하지 말아주세요');
         return;
         }
         if (pwd !== pwd_check) {
+          alert('비밀번호확인값과 비밀번호가 일치하지 않습니다');
         return;
+        }
+        let exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+        if(exptext.test(id)==false){
+          alert("이메일형식이 올바르지 않습니다.");
+          return;
         }
 
         dispatch(userActions.signupFB(id, pwd, user_name));
@@ -54,7 +61,7 @@ const Signup = () => {
               <Typography component="h1" variant="h5">
                 회원가입
               </Typography>
-              <Box component="form" noValidate sx={{ mt: 3 }}>
+              <Box noValidate sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <TextField
