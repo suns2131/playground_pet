@@ -16,7 +16,7 @@ const Login_Kakao = (props) => {
     // },[])
 
     React.useEffect(() => {
-         dispatch(LoginActions.getLogin_kakao(code));
+         dispatch(LoginActions.GetLogin_kakao(code));
       }, []);
 
     return(
