@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = (props) => {
+const ArrowBtn = (props) => {
   const { text, _onClick, is_float1, is_float2, children, margin, width, padding, bg } = props;
 
   if (is_float1) {
@@ -36,7 +36,7 @@ const Button = (props) => {
   );
 };
 
-Button.defaultProps = {
+ArrowBtn.defaultProps = {
   text: false,
   children: null,
   _onClick: () => {},
@@ -68,8 +68,8 @@ const FloatButtonRight = styled.button`
   font-size: 36px;
   font-weight: 800;
   position: fixed;
-  bottom: 500px;
-  right: 16px;
+  bottom: 50%;
+  right: 5%;
   text-align: center;
   vertical-align: middle;
   border: none;
@@ -85,11 +85,11 @@ const FloatButtonLeft = styled.button`
   font-size: 36px;
   font-weight: 800;
   position: fixed;
-  bottom: 500px;
-  right: 730px;
+  bottom: 50%;
+  right: 90%;
   text-align: center;
   vertical-align: middle;
   border: none;
   border-radius: 50px;
 `;
-export default Button;
+export default ArrowBtn;
