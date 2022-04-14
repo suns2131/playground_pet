@@ -76,6 +76,7 @@ const PostList = (props) => {
   );
 };
 
+
 const BtnDiv = styled.div`
   width: 120px;
   height: 50px;

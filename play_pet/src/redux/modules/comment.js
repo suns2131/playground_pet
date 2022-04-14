@@ -25,19 +25,17 @@ const initialState = {
 const addCommentFB = (postid, username, content) => {
   return async function (dispatch, getState, { history }) {
     const comment_data = {
-        postid : postid,
-        username : username,
-        content: content,
-    }
+      postid: postid,
+      username: username,
+      content: content,
+    };
     //http://localhost:3001/comments
     //http://15.164.96.141/api/posts
-    axios.post("http://15.164.96.141/api/posts/comment",
-       comment_data
-      )
+    axios
+      .post("http://15.164.96.141/api/posts/comment", comment_data)
       .then(function (response) {
         console.log(response.data);
-        
-        dispatch(addComment(postid,response.data))
+        getCommentFB(postid);
       })
       .catch(function (error) {
         console.log(error);
@@ -47,7 +45,7 @@ const addCommentFB = (postid, username, content) => {
 
 const getCommentFB = (postid) => {
   return async function (dispatch, getState, { history }) {
-    console.log('postid');
+    console.log("postid");
     console.log(postid);
     //http://localhost:3001/comments
     //http://15.164.96.141/api/posts/comment
@@ -59,10 +57,10 @@ const getCommentFB = (postid) => {
       })
       .then(function (response) {
         let comment_list = [...response.data].reverse();
-         dispatch(setCommnet(postid,comment_list))
+        dispatch(setCommnet(postid, comment_list));
       })
       .catch(function (error) {
-        console.log('error');
+        console.log("error");
         console.log(error);
       });
   };
@@ -80,6 +78,8 @@ export default handleActions(
 
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
+        console.log(action.payload.comment)
+
         draft.list[action.payload.postid].unshift(action.payload.comment);
       }),
   },

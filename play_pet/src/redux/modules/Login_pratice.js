@@ -1,20 +1,15 @@
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import { createBrowserHistory } from "history";
+import { connectRouter } from "connected-react-router";
 
-import {createStore,combineReducers, applyMiddleware, compose} from 'redux'
-import {connectRouter} from 'connected-react-router';
-import {createBrowserHistory} from 'history'
-import thunk from 'redux-thunk'
-import Post from "./modules/Post_savestate"
-import Login from "./modules/Login_module"
-import Comment from "./modules/comment";
-import Like_module from './modules/Like_module';
+import User from "./modules/user";
 
-export const history = createBrowserHistory();
+export const history =  createBrowserHistory();
+
 
 const rootReducer = combineReducers({
-  Like : Like_module,
-  Login : Login,
-  post: Post,
-  comment: Comment,
+  user: User,
   router: connectRouter(history),
 });
 
